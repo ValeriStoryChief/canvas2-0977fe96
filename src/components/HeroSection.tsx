@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { CanvasVisualization } from "./CanvasVisualization";
 
 export const HeroSection = () => {
   return (
@@ -47,10 +46,6 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* Canvas Visualization */}
-      <div className="relative z-10 mt-12 md:mt-16 pb-20 px-4">
-        <CanvasVisualization />
-      </div>
     </section>
   );
 };
