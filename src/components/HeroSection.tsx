@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { FloatingCard } from "./FloatingCard";
+import { CanvasVisualization } from "./CanvasVisualization";
 
 export const HeroSection = () => {
   return (
@@ -11,7 +11,7 @@ export const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-32">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-28">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fade-up">
@@ -47,40 +47,9 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* Floating Cards */}
-      <div className="relative z-10 mt-16 pb-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative max-w-6xl mx-auto h-[400px] md:h-[500px]">
-            {/* Left Card - Blog Post */}
-            <div className="absolute left-0 top-10 md:left-[5%] md:top-16 float-animation">
-              <FloatingCard
-                type="blog"
-                title="Content Marketing Guide 2024"
-                subtitle="How to build a content strategy that drives results"
-                status="Draft"
-              />
-            </div>
-
-            {/* Right Card - Social Media */}
-            <div className="absolute right-0 top-20 md:right-[5%] md:top-8 float-animation-delayed">
-              <FloatingCard
-                type="social"
-                title="LinkedIn Post"
-                subtitle="🚀 Excited to announce our new feature..."
-                platform="LinkedIn"
-              />
-            </div>
-
-            {/* Center Bottom Card - Calendar */}
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-0 md:bottom-10 float-animation-slow">
-              <FloatingCard
-                type="calendar"
-                title="Content Calendar"
-                items={["Blog: SEO Tips", "Newsletter: Weekly", "Social: Product Launch"]}
-              />
-            </div>
-          </div>
-        </div>
+      {/* Canvas Visualization */}
+      <div className="relative z-10 mt-12 md:mt-16 pb-20 px-4">
+        <CanvasVisualization />
       </div>
     </section>
   );
