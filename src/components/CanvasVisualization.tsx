@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { FileText, Sparkles, Calendar, Share2, MessageSquare, Image, Zap, Check } from "lucide-react";
+import { 
+  FileText, Sparkles, Calendar, Share2, MessageSquare, Image, 
+  Search, Video, Layout, PenTool, Send, Bot, User, Play,
+  BarChart3, Globe, ExternalLink, ChevronRight
+} from "lucide-react";
 
 interface CanvasNodeProps {
   delay: number;
   children: React.ReactNode;
   className?: string;
-  connectionFrom?: "left" | "right" | "top";
 }
 
-const CanvasNode = ({ delay, children, className = "", connectionFrom }: CanvasNodeProps) => {
+const CanvasNode = ({ delay, children, className = "" }: CanvasNodeProps) => {
   const [visible, setVisible] = useState(false);
   
   useEffect(() => {
@@ -18,22 +21,14 @@ const CanvasNode = ({ delay, children, className = "", connectionFrom }: CanvasN
 
   return (
     <div 
-      className={`transition-all duration-500 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'} ${className}`}
     >
-      {connectionFrom && visible && (
-        <div className={`absolute ${
-          connectionFrom === 'left' ? '-left-8 top-1/2 w-8 h-0.5' :
-          connectionFrom === 'right' ? '-right-8 top-1/2 w-8 h-0.5' :
-          'left-1/2 -top-8 w-0.5 h-8'
-        } bg-gradient-to-r from-primary/50 to-primary animate-pulse`} />
-      )}
       {children}
     </div>
   );
 };
 
-const TypeWriter = ({ text, delay, className = "" }: { text: string; delay: number; className?: string }) => {
+const TypeWriter = ({ text, delay, speed = 25 }: { text: string; delay: number; speed?: number }) => {
   const [displayText, setDisplayText] = useState("");
   const [started, setStarted] = useState(false);
 
@@ -44,7 +39,6 @@ const TypeWriter = ({ text, delay, className = "" }: { text: string; delay: numb
 
   useEffect(() => {
     if (!started) return;
-    
     let index = 0;
     const interval = setInterval(() => {
       if (index <= text.length) {
@@ -53,13 +47,12 @@ const TypeWriter = ({ text, delay, className = "" }: { text: string; delay: numb
       } else {
         clearInterval(interval);
       }
-    }, 30);
-    
+    }, speed);
     return () => clearInterval(interval);
-  }, [started, text]);
+  }, [started, text, speed]);
 
   return (
-    <span className={className}>
+    <span>
       {displayText}
       {started && displayText.length < text.length && (
         <span className="animate-pulse text-primary">|</span>
@@ -68,206 +61,351 @@ const TypeWriter = ({ text, delay, className = "" }: { text: string; delay: numb
   );
 };
 
-export const CanvasVisualization = () => {
-  const [showAiSpark, setShowAiSpark] = useState(false);
-  const [showConnections, setShowConnections] = useState(false);
-
+// Chat message component
+const ChatMessage = ({ role, text, delay }: { role: "user" | "assistant"; text: string; delay: number }) => {
+  const [visible, setVisible] = useState(false);
+  
   useEffect(() => {
-    const sparkTimer = setTimeout(() => setShowAiSpark(true), 2000);
-    const connTimer = setTimeout(() => setShowConnections(true), 1500);
-    return () => {
-      clearTimeout(sparkTimer);
-      clearTimeout(connTimer);
-    };
-  }, []);
+    const timer = setTimeout(() => setVisible(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  if (!visible) return null;
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto h-[500px] md:h-[600px]">
-      {/* Canvas Background */}
-      <div className="absolute inset-0 bg-card/50 backdrop-blur-sm rounded-2xl border border-border overflow-hidden">
-        {/* Grid dots */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle, hsl(var(--muted-foreground) / 0.15) 1px, transparent 1px)',
-          backgroundSize: '24px 24px'
-        }} />
+    <div className={`flex gap-2 ${role === "user" ? "flex-row-reverse" : ""}`}>
+      <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${
+        role === "user" ? "bg-primary/20" : "bg-gradient-to-br from-primary to-orange-400"
+      }`}>
+        {role === "user" ? <User className="w-3 h-3 text-primary" /> : <Bot className="w-3 h-3 text-white" />}
+      </div>
+      <div className={`px-3 py-2 rounded-xl text-xs leading-relaxed max-w-[85%] ${
+        role === "user" 
+          ? "bg-primary text-primary-foreground rounded-tr-sm" 
+          : "bg-muted text-foreground rounded-tl-sm"
+      }`}>
+        {role === "assistant" ? <TypeWriter text={text} delay={delay + 200} speed={15} /> : text}
+      </div>
+    </div>
+  );
+};
+
+export const CanvasVisualization = () => {
+  return (
+    <div className="relative w-full max-w-7xl mx-auto">
+      <div className="flex rounded-2xl border border-border overflow-hidden bg-card/80 backdrop-blur-sm shadow-2xl">
         
-        {/* Canvas toolbar */}
-        <div className="absolute top-0 left-0 right-0 h-12 bg-muted/50 border-b border-border flex items-center px-4 gap-2">
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-400" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400" />
-            <div className="w-3 h-3 rounded-full bg-green-400" />
+        {/* Left Sidebar - Conversation */}
+        <div className="w-[280px] border-r border-border bg-background/50 flex-shrink-0 hidden lg:flex flex-col">
+          {/* Sidebar Header */}
+          <div className="p-4 border-b border-border">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-foreground">StoryChief AI</p>
+                <p className="text-xs text-muted-foreground">Content Assistant</p>
+              </div>
+            </div>
           </div>
-          <div className="ml-4 px-3 py-1 bg-background/50 rounded-md text-xs text-muted-foreground">
-            Content Campaign — Q4 Launch
+
+          {/* Chat Messages */}
+          <div className="flex-1 p-4 space-y-4 overflow-hidden">
+            <ChatMessage 
+              role="user" 
+              text="Create a content campaign for our new Canvas feature launch" 
+              delay={500} 
+            />
+            <ChatMessage 
+              role="assistant" 
+              text="I'll help you create a comprehensive campaign! Let me generate keyword research, blog content, social posts, and marketing assets." 
+              delay={1500} 
+            />
+            <ChatMessage 
+              role="user" 
+              text="Also add a landing page and promo video" 
+              delay={4000} 
+            />
+            <ChatMessage 
+              role="assistant" 
+              text="Perfect! I've added a landing page mockup and video script to your canvas. All assets are now connected in your campaign." 
+              delay={5000} 
+            />
           </div>
-          <div className="ml-auto flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-xs font-medium text-primary">AI Active</span>
+
+          {/* Input */}
+          <div className="p-4 border-t border-border">
+            <div className="flex items-center gap-2 px-3 py-2 bg-muted rounded-xl">
+              <input 
+                type="text" 
+                placeholder="Ask AI to create content..." 
+                className="flex-1 bg-transparent text-xs text-foreground placeholder:text-muted-foreground outline-none"
+                disabled
+              />
+              <button className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+                <Send className="w-3 h-3 text-primary-foreground" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Connection Lines */}
-        <svg className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${showConnections ? 'opacity-100' : 'opacity-0'}`}>
-          {/* Main content to social */}
-          <path
-            d="M 320 250 Q 400 200 480 180"
-            stroke="hsl(var(--primary) / 0.3)"
-            strokeWidth="2"
-            fill="none"
-            strokeDasharray="5,5"
-            className="animate-pulse"
-          />
-          {/* Main content to blog */}
-          <path
-            d="M 320 250 Q 200 280 120 320"
-            stroke="hsl(var(--primary) / 0.3)"
-            strokeWidth="2"
-            fill="none"
-            strokeDasharray="5,5"
-            className="animate-pulse"
-          />
-          {/* Main content to calendar */}
-          <path
-            d="M 320 280 Q 350 350 380 400"
-            stroke="hsl(var(--primary) / 0.3)"
-            strokeWidth="2"
-            fill="none"
-            strokeDasharray="5,5"
-            className="animate-pulse"
-          />
-        </svg>
-
-        {/* Central AI Content Generator */}
-        <CanvasNode delay={200} className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 z-20">
-          <div className="w-[320px] bg-card rounded-xl shadow-card border border-primary/30 overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 bg-primary/10 border-b border-primary/20">
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">AI Content Brief</span>
-              {showAiSpark && <Zap className="w-3 h-3 text-primary animate-bounce ml-auto" />}
+        {/* Main Canvas */}
+        <div className="flex-1 relative min-h-[600px] overflow-hidden">
+          {/* Canvas Toolbar */}
+          <div className="absolute top-0 left-0 right-0 h-10 bg-muted/50 border-b border-border flex items-center px-4 gap-3 z-10">
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
             </div>
-            <div className="p-4 space-y-3">
-              <div>
-                <p className="text-xs text-muted-foreground mb-1">Campaign Theme</p>
-                <p className="text-sm font-medium text-foreground">
-                  <TypeWriter text="Product Launch — StoryChief Canvas" delay={500} />
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground mb-1">Target Audience</p>
-                <p className="text-sm text-foreground">
-                  <TypeWriter text="Marketing teams & content creators" delay={1200} />
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground mb-1">Key Message</p>
-                <p className="text-sm text-foreground">
-                  <TypeWriter text="Create content 10x faster with AI" delay={2000} />
-                </p>
-              </div>
+            <div className="h-5 w-px bg-border" />
+            <span className="text-xs font-medium text-foreground">Canvas Feature Launch Campaign</span>
+            <div className="ml-auto flex items-center gap-2">
+              <div className="px-2 py-1 bg-green-500/10 rounded text-xs text-green-600 font-medium">Auto-saving</div>
             </div>
           </div>
-        </CanvasNode>
 
-        {/* Social Media Post - Top Right */}
-        <CanvasNode delay={2800} className="absolute right-8 md:right-16 top-24 md:top-28">
-          <div className="w-[240px] md:w-[280px] bg-card rounded-xl shadow-card border border-border overflow-hidden">
-            <div className="flex items-center gap-2 px-3 py-2 bg-blue-500/10 border-b border-border">
-              <Share2 className="w-4 h-4 text-blue-500" />
-              <span className="text-xs font-medium text-foreground">LinkedIn Post</span>
-              <Check className="w-3 h-3 text-green-500 ml-auto" />
-            </div>
-            <div className="p-3">
-              <p className="text-xs text-foreground leading-relaxed">
-                <TypeWriter 
-                  text="🚀 Big news! Introducing StoryChief Canvas — your new infinite workspace for content creation. Plan, create & publish all in one place." 
-                  delay={3200} 
-                />
-              </p>
-              <div className="mt-3 flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-primary/60" />
-                <span className="text-xs text-muted-foreground">@storychief</span>
-              </div>
-            </div>
-          </div>
-        </CanvasNode>
+          {/* Canvas Grid Background */}
+          <div className="absolute inset-0 pt-10" style={{
+            backgroundImage: 'radial-gradient(circle, hsl(var(--muted-foreground) / 0.1) 1px, transparent 1px)',
+            backgroundSize: '20px 20px'
+          }} />
 
-        {/* Blog Post Card - Left */}
-        <CanvasNode delay={3800} className="absolute left-4 md:left-12 bottom-32 md:bottom-36">
-          <div className="w-[240px] md:w-[280px] bg-card rounded-xl shadow-card border border-border overflow-hidden">
-            <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 border-b border-border">
-              <FileText className="w-4 h-4 text-primary" />
-              <span className="text-xs font-medium text-foreground">Blog Article</span>
-            </div>
-            <div className="p-3">
-              <div className="w-full h-16 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg mb-3 flex items-center justify-center">
-                <Image className="w-6 h-6 text-primary/40" />
-              </div>
-              <h4 className="text-sm font-semibold text-foreground mb-1">
-                <TypeWriter text="How to 10x Your Content Output" delay={4200} />
-              </h4>
-              <p className="text-xs text-muted-foreground">
-                <TypeWriter text="A complete guide to using AI for content creation..." delay={4800} />
-              </p>
-            </div>
-          </div>
-        </CanvasNode>
-
-        {/* Calendar Card - Bottom Right */}
-        <CanvasNode delay={4500} className="absolute right-8 md:right-20 bottom-16 md:bottom-20">
-          <div className="w-[220px] md:w-[260px] bg-card rounded-xl shadow-card border border-border overflow-hidden">
-            <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 border-b border-border">
-              <Calendar className="w-4 h-4 text-primary" />
-              <span className="text-xs font-medium text-foreground">Schedule</span>
-            </div>
-            <div className="p-3 space-y-2">
-              {[
-                { label: "LinkedIn Post", time: "Mon 9:00 AM", color: "bg-blue-500" },
-                { label: "Blog Article", time: "Wed 10:00 AM", color: "bg-primary" },
-                { label: "Newsletter", time: "Fri 8:00 AM", color: "bg-green-500" },
-              ].map((item, i) => (
-                <div 
-                  key={i} 
-                  className={`flex items-center gap-2 p-2 rounded-lg bg-muted/30 transition-all duration-300`}
-                  style={{ 
-                    opacity: 1,
-                    transitionDelay: `${5000 + i * 300}ms`,
-                    animation: `fade-up 0.3s ease-out ${5000 + i * 300}ms backwards`
-                  }}
-                >
-                  <div className={`w-2 h-2 rounded-full ${item.color}`} />
-                  <span className="text-xs text-foreground flex-1">{item.label}</span>
-                  <span className="text-xs text-muted-foreground">{item.time}</span>
+          {/* Canvas Content */}
+          <div className="relative pt-14 px-4 pb-6 h-full">
+            <div className="grid grid-cols-12 gap-4 h-full">
+              
+              {/* Row 1 */}
+              {/* Keyword Research Table */}
+              <CanvasNode delay={800} className="col-span-5">
+                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-emerald-500/10 border-b border-border">
+                    <Search className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="text-xs font-medium text-foreground">Keyword Research</span>
+                    <BarChart3 className="w-3 h-3 text-emerald-600 ml-auto" />
+                  </div>
+                  <div className="p-3">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="text-muted-foreground border-b border-border">
+                          <th className="text-left pb-2 font-medium">Keyword</th>
+                          <th className="text-right pb-2 font-medium">Volume</th>
+                          <th className="text-right pb-2 font-medium">Diff.</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-foreground">
+                        {[
+                          { kw: "content canvas tool", vol: "2.4K", diff: "Low" },
+                          { kw: "ai content workspace", vol: "1.8K", diff: "Med" },
+                          { kw: "content collaboration", vol: "5.1K", diff: "High" },
+                          { kw: "visual content planning", vol: "890", diff: "Low" },
+                        ].map((row, i) => (
+                          <tr key={i} className="border-b border-border/50 last:border-0">
+                            <td className="py-1.5">{row.kw}</td>
+                            <td className="text-right text-muted-foreground">{row.vol}</td>
+                            <td className={`text-right ${
+                              row.diff === "Low" ? "text-green-500" : 
+                              row.diff === "Med" ? "text-yellow-500" : "text-red-500"
+                            }`}>{row.diff}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              ))}
+              </CanvasNode>
+
+              {/* Blog Article */}
+              <CanvasNode delay={1200} className="col-span-4">
+                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-primary/10 border-b border-border">
+                    <FileText className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-xs font-medium text-foreground">Blog Article</span>
+                  </div>
+                  <div className="p-3">
+                    <div className="w-full h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg mb-2 flex items-center justify-center">
+                      <Image className="w-4 h-4 text-primary/40" />
+                    </div>
+                    <h4 className="text-xs font-semibold text-foreground mb-1">
+                      <TypeWriter text="How to 10x Your Content Output with Canvas" delay={1600} />
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground line-clamp-2">
+                      A complete guide to using AI-powered visual workspaces...
+                    </p>
+                    <div className="mt-2 flex items-center gap-1">
+                      <span className="px-1.5 py-0.5 bg-amber-100 text-amber-700 text-[10px] rounded">Draft</span>
+                      <span className="text-[10px] text-muted-foreground">1,240 words</span>
+                    </div>
+                  </div>
+                </div>
+              </CanvasNode>
+
+              {/* Social Post */}
+              <CanvasNode delay={1600} className="col-span-3">
+                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-blue-500/10 border-b border-border">
+                    <Share2 className="w-3.5 h-3.5 text-blue-500" />
+                    <span className="text-xs font-medium text-foreground">LinkedIn</span>
+                  </div>
+                  <div className="p-3">
+                    <p className="text-[10px] text-foreground leading-relaxed">
+                      🚀 Big news! Introducing Canvas — your infinite workspace for content creation.
+                    </p>
+                    <div className="mt-2 flex items-center gap-1.5">
+                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-primary to-orange-400" />
+                      <span className="text-[10px] text-muted-foreground">@storychief</span>
+                    </div>
+                  </div>
+                </div>
+              </CanvasNode>
+
+              {/* Row 2 */}
+              {/* Landing Page */}
+              <CanvasNode delay={2000} className="col-span-5 row-span-2">
+                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden h-full">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-violet-500/10 border-b border-border">
+                    <Layout className="w-3.5 h-3.5 text-violet-500" />
+                    <span className="text-xs font-medium text-foreground">Landing Page</span>
+                    <ExternalLink className="w-3 h-3 text-muted-foreground ml-auto" />
+                  </div>
+                  <div className="p-3 h-[calc(100%-36px)]">
+                    <div className="w-full h-full bg-gradient-to-br from-background to-muted rounded-lg border border-border overflow-hidden">
+                      {/* Mini landing page preview */}
+                      <div className="p-2 space-y-2">
+                        <div className="h-2 w-20 bg-primary/20 rounded" />
+                        <div className="flex gap-1">
+                          <div className="h-1 w-8 bg-muted-foreground/20 rounded" />
+                          <div className="h-1 w-8 bg-muted-foreground/20 rounded" />
+                          <div className="h-1 w-8 bg-muted-foreground/20 rounded" />
+                        </div>
+                        <div className="mt-4 space-y-1">
+                          <div className="h-3 w-3/4 bg-foreground/10 rounded" />
+                          <div className="h-3 w-1/2 bg-foreground/10 rounded" />
+                        </div>
+                        <div className="h-2 w-16 bg-primary rounded mt-2" />
+                        <div className="mt-3 h-16 bg-primary/10 rounded flex items-center justify-center">
+                          <Globe className="w-6 h-6 text-primary/30" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CanvasNode>
+
+              {/* Generated Video */}
+              <CanvasNode delay={2400} className="col-span-4">
+                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-pink-500/10 border-b border-border">
+                    <Video className="w-3.5 h-3.5 text-pink-500" />
+                    <span className="text-xs font-medium text-foreground">Promo Video</span>
+                  </div>
+                  <div className="p-3">
+                    <div className="relative w-full aspect-video bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg overflow-hidden flex items-center justify-center">
+                      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiLz48cGF0aCBkPSJNMjAgMjBtLTEgMGExIDEgMCAxIDAgMiAwIDEgMSAwIDEgMCAtMiAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L2c+PC9zdmc+')] opacity-50" />
+                      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center cursor-pointer hover:bg-white/30 transition-colors">
+                        <Play className="w-4 h-4 text-white ml-0.5" />
+                      </div>
+                      <div className="absolute bottom-2 left-2 px-1.5 py-0.5 bg-black/50 rounded text-[10px] text-white">
+                        0:45
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CanvasNode>
+
+              {/* Schedule */}
+              <CanvasNode delay={2800} className="col-span-3">
+                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-cyan-500/10 border-b border-border">
+                    <Calendar className="w-3.5 h-3.5 text-cyan-500" />
+                    <span className="text-xs font-medium text-foreground">Schedule</span>
+                  </div>
+                  <div className="p-2 space-y-1.5">
+                    {[
+                      { label: "Blog Launch", time: "Mon 9AM", color: "bg-primary" },
+                      { label: "LinkedIn", time: "Mon 11AM", color: "bg-blue-500" },
+                      { label: "Email Blast", time: "Tue 8AM", color: "bg-green-500" },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-2 p-1.5 rounded bg-muted/50 text-[10px]">
+                        <div className={`w-1.5 h-1.5 rounded-full ${item.color}`} />
+                        <span className="text-foreground flex-1">{item.label}</span>
+                        <span className="text-muted-foreground">{item.time}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CanvasNode>
+
+              {/* Row 3 */}
+              {/* Video Script */}
+              <CanvasNode delay={3200} className="col-span-4">
+                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-amber-500/10 border-b border-border">
+                    <PenTool className="w-3.5 h-3.5 text-amber-500" />
+                    <span className="text-xs font-medium text-foreground">Video Script</span>
+                  </div>
+                  <div className="p-3 space-y-2">
+                    <div className="flex gap-2 text-[10px]">
+                      <span className="text-primary font-medium">00:00</span>
+                      <p className="text-foreground">Hook: "What if you could create a week's worth of content in one session?"</p>
+                    </div>
+                    <div className="flex gap-2 text-[10px]">
+                      <span className="text-primary font-medium">00:08</span>
+                      <p className="text-foreground">Introducing StoryChief Canvas...</p>
+                    </div>
+                    <div className="flex gap-2 text-[10px]">
+                      <span className="text-primary font-medium">00:20</span>
+                      <p className="text-muted-foreground italic">Demo sequence...</p>
+                    </div>
+                  </div>
+                </div>
+              </CanvasNode>
+
+              {/* Generated Images */}
+              <CanvasNode delay={3600} className="col-span-3">
+                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-rose-500/10 border-b border-border">
+                    <Image className="w-3.5 h-3.5 text-rose-500" />
+                    <span className="text-xs font-medium text-foreground">Generated Images</span>
+                  </div>
+                  <div className="p-2">
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {[
+                        "from-primary/30 to-orange-400/30",
+                        "from-blue-400/30 to-purple-400/30",
+                        "from-emerald-400/30 to-cyan-400/30",
+                        "from-pink-400/30 to-rose-400/30",
+                      ].map((gradient, i) => (
+                        <div 
+                          key={i} 
+                          className={`aspect-square rounded-lg bg-gradient-to-br ${gradient} flex items-center justify-center`}
+                        >
+                          <Sparkles className="w-3 h-3 text-foreground/30" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CanvasNode>
+
             </div>
           </div>
-        </CanvasNode>
 
-        {/* Comment/Collaboration bubble */}
-        <CanvasNode delay={5500} className="absolute left-1/2 bottom-8 -translate-x-1/2">
-          <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-full shadow-card border border-border">
-            <MessageSquare className="w-4 h-4 text-primary" />
-            <span className="text-xs text-foreground">
-              <TypeWriter text="Sarah added a comment: 'Love the headline! 🎉'" delay={5800} />
-            </span>
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 -ml-1" />
-          </div>
-        </CanvasNode>
-
-        {/* Floating AI suggestions */}
-        {showAiSpark && (
-          <div className="absolute top-20 left-8 md:left-16 animate-fade-up">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 rounded-full border border-primary/20">
-              <Sparkles className="w-3 h-3 text-primary" />
-              <span className="text-xs text-primary font-medium">AI suggests: Add a CTA</span>
+          {/* AI Indicator */}
+          <CanvasNode delay={4000} className="absolute bottom-4 right-4">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 backdrop-blur rounded-full border border-primary/20">
+              <Sparkles className="w-3 h-3 text-primary animate-pulse" />
+              <span className="text-xs font-medium text-primary">AI Generated Campaign</span>
+              <ChevronRight className="w-3 h-3 text-primary" />
             </div>
-          </div>
-        )}
+          </CanvasNode>
+
+        </div>
       </div>
 
       {/* Glow effect */}
-      <div className="absolute -inset-4 bg-primary/5 rounded-3xl blur-3xl -z-10" />
+      <div className="absolute -inset-8 bg-primary/5 rounded-3xl blur-3xl -z-10" />
     </div>
   );
 };
