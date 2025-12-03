@@ -561,25 +561,27 @@ export const FullScreenCanvas = () => {
                 </div>
 
                 {/* Column 5 - Video Script */}
-                <div className="flex flex-col gap-6 w-[340px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={65}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                <div className="flex flex-col gap-6 w-[340px] flex-shrink-0 h-full">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={65} className="flex-1 flex">
+                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden flex flex-col flex-1">
                       <div className="flex items-center gap-2 px-4 py-3 bg-amber-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
                           <PenTool className="w-4 h-4 text-amber-500" />
                         </div>
                         <span className="font-medium text-foreground">Video Script</span>
                       </div>
-                      <div className="p-4 space-y-3">
+                      <div className="p-4 space-y-4 flex-1">
                         {[
                           { time: "00:00", text: "Hook: \"What makes a marketing campaign truly award-worthy?\"", type: "hook" },
                           { time: "00:08", text: "Introducing the Yearly Marketing Awards — celebrating excellence.", type: "intro" },
                           { time: "00:15", text: "[Demo: Award nominees showcase reel]", type: "visual" },
-                          { time: "00:30", text: "Nominate. Compete. Win recognition from industry leaders.", type: "outro" },
-                          { time: "00:40", text: "CTA: Submit your nomination today!", type: "cta" },
+                          { time: "00:25", text: "Past winners share their strategies and success stories.", type: "content" },
+                          { time: "00:35", text: "[B-roll: Creative team collaborating]", type: "visual" },
+                          { time: "00:45", text: "Nominate. Compete. Win recognition from industry leaders.", type: "outro" },
+                          { time: "00:55", text: "CTA: Submit your nomination today!", type: "cta" },
                         ].map((item, i) => (
                           <div key={i} className="flex gap-3">
-                            <span className="text-xs font-mono text-primary font-medium w-10 flex-shrink-0">{item.time}</span>
+                            <span className="text-xs font-mono text-primary font-medium w-12 flex-shrink-0">{item.time}</span>
                             <p className={`text-sm leading-relaxed ${item.type === "visual" ? "text-muted-foreground italic" : "text-foreground"}`}>
                               {item.text}
                             </p>
@@ -623,7 +625,36 @@ export const FullScreenCanvas = () => {
                     </div>
                   </CanvasCard>
 
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={85} className="self-end mt-auto">
+                  {/* Instagram Post Draft */}
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={80}>
+                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-purple-500/5 to-pink-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500/10 to-pink-500/10 flex items-center justify-center">
+                          <Image className="w-4 h-4 text-purple-500" />
+                        </div>
+                        <span className="font-medium text-foreground">Instagram Post</span>
+                        <span className="ml-auto px-2 py-0.5 bg-amber-100 text-amber-700 text-xs rounded-full font-medium">Draft</span>
+                      </div>
+                      <div className="p-4">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-pink-500/30">
+                            <img src={storychiefLogo} alt="StoryChief" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-sm font-medium text-foreground">storychief</span>
+                        </div>
+                        <div className="aspect-square w-full rounded-lg overflow-hidden mb-3 bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
+                          <img src={promoImage1} alt="Instagram post" className="w-full h-full object-cover" />
+                        </div>
+                        <p className="text-sm text-foreground leading-relaxed">
+                          🏆 The wait is over! Nominations for the Yearly Marketing Awards are NOW OPEN.
+                          <br /><br />
+                          <span className="text-primary">#MarketingAwards #ContentCreation #MarketingExcellence</span>
+                        </p>
+                      </div>
+                    </div>
+                  </CanvasCard>
+
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={88} className="self-end mt-auto">
                     <div className="flex items-center gap-3 px-5 py-3 bg-card/90 backdrop-blur-md rounded-full border border-primary/30 shadow-lg">
                       <div className="w-8 h-8 rounded-full overflow-hidden">
                         <img src={storychiefLogo} alt="StoryChief AI" className="w-full h-full object-cover" />
