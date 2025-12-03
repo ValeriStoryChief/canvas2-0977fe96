@@ -133,7 +133,7 @@ export const FullScreenCanvas = () => {
       style={{ height: '300vh' }} // 3x viewport height for scroll distance
     >
       {/* Sticky container */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden">
+      <div className="sticky top-16 w-full h-[calc(100vh-4rem)] overflow-hidden">
         {/* Background Grid */}
         <div 
           className="absolute inset-0 opacity-40"
