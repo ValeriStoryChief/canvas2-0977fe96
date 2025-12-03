@@ -156,12 +156,9 @@ export const FullScreenCanvas = () => {
       const scrollableDistance = sectionHeight - viewportHeight;
       const scrolled = -sectionTop;
       
-      // Initial offset to start content further scrolled (so first card appears where second was)
-      const initialOffset = 300;
-      
       if (scrolled < 0) {
         setScrollProgress(0);
-        content.style.transform = `translateX(-${initialOffset}px)`;
+        content.style.transform = 'translateX(0)';
         return;
       }
       
@@ -176,7 +173,7 @@ export const FullScreenCanvas = () => {
       setScrollProgress(progress);
       
       const maxTranslate = content.scrollWidth - (window.innerWidth - 320);
-      const translateX = initialOffset + (scrolled / scrollableDistance) * (maxTranslate - initialOffset);
+      const translateX = (scrolled / scrollableDistance) * maxTranslate;
       content.style.transform = `translateX(-${translateX}px)`;
     };
 
@@ -342,6 +339,9 @@ export const FullScreenCanvas = () => {
                 style={{ width: 'max-content', minWidth: '3400px' }}
               >
                 
+                {/* Empty spacer column - pushes content to the right */}
+                <div className="w-[380px] flex-shrink-0" />
+
                 {/* Column 1 - Keyword Research */}
                 <div className="flex flex-col gap-6 w-[380px] flex-shrink-0">
                   <CanvasCard scrollProgress={scrollProgress} revealAt={10}>
