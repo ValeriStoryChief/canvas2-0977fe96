@@ -8,7 +8,7 @@ import {
 
 // Import assets
 import storychiefLogo from "@/assets/storychief-logo.png";
-import userAvatar from "@/assets/user-avatar.png";
+import userAvatar from "@/assets/user-avatar-new.jpg";
 import aiAvatar from "@/assets/ai-avatar.jpg";
 import blogCover from "@/assets/blog-cover.jpg";
 import landingPage from "@/assets/landing-page.jpg";
@@ -187,10 +187,10 @@ export const FullScreenCanvas = () => {
     <section 
       ref={sectionRef} 
       className="relative w-full bg-background"
-      style={{ height: '300vh' }}
+      style={{ height: '220vh' }}
     >
       {/* Sticky container */}
-      <div className="sticky top-16 w-full h-[calc(100vh-4rem)] overflow-hidden">
+      <div className="sticky top-16 w-full h-[calc(100vh-4rem)] overflow-visible">
         {/* Background Grid */}
         <div 
           className="absolute inset-0 opacity-40"
@@ -263,7 +263,7 @@ export const FullScreenCanvas = () => {
               <MessageCircle className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm text-muted-foreground">Comments</span>
             </button>
-            <button className="flex items-center gap-2 px-3 py-1.5 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+            <button className="flex items-center gap-2 px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
               <Share2 className="w-4 h-4" />
               <span className="text-sm font-medium">Share</span>
             </button>
