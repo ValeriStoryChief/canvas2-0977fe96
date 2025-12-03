@@ -335,8 +335,8 @@ export const FullScreenCanvas = () => {
             <div className="flex-1 overflow-hidden">
               <div 
                 ref={contentRef}
-                className="h-full p-8 flex gap-6 transition-transform duration-100 ease-out"
-                style={{ width: 'max-content', minWidth: '3200px' }}
+                className="h-full py-8 pr-8 pl-[200px] flex gap-6 transition-transform duration-100 ease-out"
+                style={{ width: 'max-content', minWidth: '3400px' }}
               >
                 
                 {/* Column 1 - Keyword Research */}
