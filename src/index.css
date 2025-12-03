@@ -216,4 +216,35 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Mobile canvas utilities */
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out forwards;
+  }
+
+  /* Mobile section header sticky */
+  .mobile-section-header {
+    @apply sticky top-[5.5rem] z-20 py-3 px-4 bg-background/95 backdrop-blur-sm border-b border-border;
+  }
+
+  /* Mobile canvas card */
+  .mobile-canvas-card {
+    @apply bg-card rounded-xl border border-border shadow-lg overflow-hidden;
+  }
+
+  /* Touch-friendly tap targets */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
 }

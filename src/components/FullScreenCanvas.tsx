@@ -6,6 +6,8 @@ import {
   ChevronRight, ArrowRight, CheckCircle2, MessageCircle, Mail,
   TrendingUp, ListTodo, Code, Download
 } from "lucide-react";
+import { useMobileCanvas } from "@/hooks/useMobileCanvas";
+import { MobileCanvasContent } from "./MobileCanvasContent";
 
 // Import assets
 import storychiefLogo from "@/assets/storychief-logo.png";
@@ -216,12 +218,16 @@ const SectionDivider = ({ title, scrollProgress, revealAt }: { title: string; sc
 };
 
 export const FullScreenCanvas = () => {
+  const { isMobile, isTablet } = useMobileCanvas();
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
+    // Skip horizontal scroll logic on mobile/tablet
+    if (isMobile || isTablet) return;
+
     const section = sectionRef.current;
     const content = contentRef.current;
     if (!section || !content) return;
@@ -264,8 +270,14 @@ export const FullScreenCanvas = () => {
     handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobile, isTablet]);
 
+  // Render mobile/tablet layout
+  if (isMobile || isTablet) {
+    return <MobileCanvasContent />;
+  }
+
+  // Desktop layout
   return (
     <section 
       ref={sectionRef} 
