@@ -330,12 +330,6 @@ export const FullScreenCanvas = () => {
             </div>
           </div>
           <div className="h-6 w-px bg-border mx-6" />
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-400" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400" />
-            <div className="w-3 h-3 rounded-full bg-green-400" />
-          </div>
-          <div className="h-6 w-px bg-border mx-4" />
           <span className="font-medium text-foreground">Yearly Marketing Awards Campaign</span>
           <div className="ml-auto flex items-center gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
