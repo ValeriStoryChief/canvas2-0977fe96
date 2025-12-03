@@ -219,6 +219,7 @@ export const FullScreenCanvas = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -230,6 +231,10 @@ export const FullScreenCanvas = () => {
       const sectionTop = rect.top;
       const sectionHeight = section.offsetHeight;
       const viewportHeight = window.innerHeight;
+      
+      // Check if canvas section is in view
+      const inView = sectionTop < viewportHeight && rect.bottom > 0;
+      setIsInView(inView);
       
       const scrollableDistance = sectionHeight - viewportHeight;
       const scrolled = -sectionTop;
@@ -816,7 +821,7 @@ export const FullScreenCanvas = () => {
       </div>
 
       {/* Section Progress & Scroll Progress */}
-      {scrollProgress < 95 && (
+      {isInView && scrollProgress < 95 && (
         <>
           <SectionProgress scrollProgress={scrollProgress} />
           <ScrollProgress progress={scrollProgress} />
