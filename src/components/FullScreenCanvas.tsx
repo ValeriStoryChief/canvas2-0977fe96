@@ -3,7 +3,8 @@ import {
   FileText, Calendar, Share2, Image, 
   Search, Video, Layout, PenTool, Send, Play,
   BarChart3, Globe, ExternalLink, Clock, Users, Zap,
-  ChevronRight, ArrowRight, CheckCircle2, MessageCircle, Mail
+  ChevronRight, ArrowRight, CheckCircle2, MessageCircle, Mail,
+  TrendingUp, ListTodo, Code, Download
 } from "lucide-react";
 
 // Import assets
@@ -17,6 +18,69 @@ import promoImage1 from "@/assets/promo-image-1.jpg";
 import promoImage2 from "@/assets/promo-image-2.jpg";
 import promoImage3 from "@/assets/promo-image-3.jpg";
 import promoImage4 from "@/assets/promo-image-4.jpg";
+
+// Section Progress Indicator
+const SectionProgress = ({ scrollProgress }: { scrollProgress: number }) => {
+  const sections = [
+    { name: "Research & Brainstorm", range: [0, 33] },
+    { name: "Create & Repurpose", range: [33, 70] },
+    { name: "Export & Publish", range: [70, 100] },
+  ];
+
+  const getCurrentSection = () => {
+    if (scrollProgress < 33) return 0;
+    if (scrollProgress < 70) return 1;
+    return 2;
+  };
+
+  const currentSection = getCurrentSection();
+
+  return (
+    <div className="absolute top-20 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 px-4 py-2 bg-card/95 backdrop-blur-md rounded-full border border-border shadow-lg">
+      {sections.map((section, i) => {
+        const isActive = i === currentSection;
+        const isPast = i < currentSection;
+        const sectionProgress = scrollProgress >= section.range[0] && scrollProgress < section.range[1]
+          ? ((scrollProgress - section.range[0]) / (section.range[1] - section.range[0])) * 100
+          : scrollProgress >= section.range[1] ? 100 : 0;
+
+        return (
+          <div key={i} className="flex items-center gap-2">
+            {i > 0 && (
+              <div className={`w-8 h-0.5 rounded-full transition-colors ${isPast || isActive ? 'bg-primary' : 'bg-muted'}`} />
+            )}
+            <div className="flex items-center gap-2">
+              <div className={`relative w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-all ${
+                isActive ? 'bg-primary text-primary-foreground' : isPast ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'
+              }`}>
+                {isPast ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
+                {isActive && (
+                  <svg className="absolute inset-0 w-7 h-7 -rotate-90">
+                    <circle
+                      cx="14"
+                      cy="14"
+                      r="12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeDasharray={`${sectionProgress * 0.75} 100`}
+                      className="text-primary-foreground/30"
+                    />
+                  </svg>
+                )}
+              </div>
+              <span className={`text-xs font-medium whitespace-nowrap transition-colors ${
+                isActive ? 'text-foreground' : isPast ? 'text-primary' : 'text-muted-foreground'
+              }`}>
+                {section.name}
+              </span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 // Miro-like cursor component
 const MiroCursor = ({ 
@@ -133,6 +197,20 @@ const ChatBubble = ({ role, text, visible }: { role: "user" | "ai"; text: string
       }`}>
         {text}
       </div>
+    </div>
+  );
+};
+
+// Section Divider
+const SectionDivider = ({ title, scrollProgress, revealAt }: { title: string; scrollProgress: number; revealAt: number }) => {
+  const isVisible = scrollProgress >= revealAt;
+  
+  return (
+    <div 
+      className="flex flex-col items-center justify-center w-[100px] flex-shrink-0 transition-all duration-500"
+      style={{ opacity: isVisible ? 1 : 0.3 }}
+    >
+      <div className="w-px h-full bg-gradient-to-b from-transparent via-border to-transparent" />
     </div>
   );
 };
@@ -274,6 +352,9 @@ export const FullScreenCanvas = () => {
           </div>
         </div>
 
+        {/* Section Progress Indicator */}
+        <SectionProgress scrollProgress={scrollProgress} />
+
         {/* Main Layout - starts below toolbar */}
         <div className="relative w-full h-full pt-14 flex overflow-visible">
           
@@ -294,12 +375,12 @@ export const FullScreenCanvas = () => {
               <ChatBubble 
                 role="user" 
                 text="Add a landing page and promo video too" 
-                visible={scrollProgress >= 25}
+                visible={scrollProgress >= 35}
               />
               <ChatBubble 
                 role="ai" 
                 text="Done! I've added a landing page mockup and video script. All assets are connected in your canvas." 
-                visible={scrollProgress >= 35}
+                visible={scrollProgress >= 45}
               />
               <ChatBubble 
                 role="user" 
@@ -309,7 +390,17 @@ export const FullScreenCanvas = () => {
               <ChatBubble 
                 role="ai" 
                 text="I've generated 4 promotional images optimized for different channels. Check them on your canvas!" 
-                visible={scrollProgress >= 65}
+                visible={scrollProgress >= 60}
+              />
+              <ChatBubble 
+                role="user" 
+                text="Schedule everything and export the code" 
+                visible={scrollProgress >= 72}
+              />
+              <ChatBubble 
+                role="ai" 
+                text="Campaign scheduled! I've also prepared the export code for your landing page. Ready to publish!" 
+                visible={scrollProgress >= 78}
               />
             </div>
 
@@ -336,15 +427,17 @@ export const FullScreenCanvas = () => {
               <div 
                 ref={contentRef}
                 className="h-full py-8 pr-8 pl-[200px] flex gap-6 transition-transform duration-100 ease-out"
-                style={{ width: 'max-content', minWidth: '3400px' }}
+                style={{ width: 'max-content', minWidth: '4200px' }}
               >
                 
                 {/* Empty spacer column - pushes content to the right */}
                 <div className="w-[380px] flex-shrink-0" />
 
-                {/* Column 1 - Keyword Research */}
+                {/* ==================== SECTION 1: Research & Brainstorm ==================== */}
+                
+                {/* Column 1a - Keyword Research */}
                 <div className="flex flex-col gap-6 w-[380px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={10}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={5}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-emerald-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
@@ -383,9 +476,105 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
                 </div>
 
-                {/* Column 2 - Blog Article & Schedule */}
+                {/* Column 1b - Longtail Opportunities (NEW) */}
                 <div className="flex flex-col gap-6 w-[340px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={17}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={12}>
+                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-teal-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center">
+                          <TrendingUp className="w-4 h-4 text-teal-600" />
+                        </div>
+                        <span className="font-medium text-foreground">Longtail Opportunities</span>
+                      </div>
+                      <div className="p-4 space-y-3">
+                        {[
+                          { kw: "how to submit for marketing awards", vol: "720", opportunity: "High" },
+                          { kw: "best b2b marketing awards 2024", vol: "480", opportunity: "High" },
+                          { kw: "marketing award categories explained", vol: "320", opportunity: "Medium" },
+                          { kw: "winning marketing award tips", vol: "590", opportunity: "High" },
+                          { kw: "free marketing award submissions", vol: "210", opportunity: "Low" },
+                        ].map((row, i) => (
+                          <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+                            <span className="text-sm text-foreground">{row.kw}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs text-muted-foreground">{row.vol}</span>
+                              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                                row.opportunity === "High" ? "bg-green-100 text-green-700" :
+                                row.opportunity === "Medium" ? "bg-yellow-100 text-yellow-700" :
+                                "bg-gray-100 text-gray-600"
+                              }`}>{row.opportunity}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </CanvasCard>
+                </div>
+
+                {/* Column 1c - Tasks (NEW) */}
+                <div className="flex flex-col gap-6 w-[300px] flex-shrink-0">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={20}>
+                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-indigo-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+                          <ListTodo className="w-4 h-4 text-indigo-600" />
+                        </div>
+                        <span className="font-medium text-foreground">Tasks</span>
+                        <span className="ml-auto text-xs text-muted-foreground">3/6</span>
+                      </div>
+                      <div className="p-4 space-y-2">
+                        {[
+                          { task: "Research competitors", done: true },
+                          { task: "Define target keywords", done: true },
+                          { task: "Create content brief", done: true },
+                          { task: "Draft blog article", done: false },
+                          { task: "Design landing page", done: false },
+                          { task: "Schedule social posts", done: false },
+                        ].map((item, i) => (
+                          <div key={i} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-muted/30 transition-colors">
+                            <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                              item.done ? "bg-green-500 border-green-500" : "border-muted-foreground/30"
+                            }`}>
+                              {item.done && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
+                            </div>
+                            <span className={`text-sm ${item.done ? "text-muted-foreground line-through" : "text-foreground"}`}>
+                              {item.task}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </CanvasCard>
+                </div>
+
+                {/* Section Divider */}
+                <SectionDivider title="Create" scrollProgress={scrollProgress} revealAt={30} />
+
+                {/* ==================== SECTION 2: Create & Repurpose ==================== */}
+
+                {/* Column 2a - Landing Page */}
+                <div className="flex flex-col gap-6 w-[400px] flex-shrink-0">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={35}>
+                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-violet-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+                          <Layout className="w-4 h-4 text-violet-500" />
+                        </div>
+                        <span className="font-medium text-foreground">Landing Page</span>
+                        <ExternalLink className="w-4 h-4 text-muted-foreground ml-auto cursor-pointer hover:text-foreground transition-colors" />
+                      </div>
+                      <div className="p-4">
+                        <div className="w-full aspect-[16/10] rounded-lg overflow-hidden border border-border">
+                          <img src={landingPage} alt="Landing page" className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                  </CanvasCard>
+                </div>
+
+                {/* Column 2b - Blog Article */}
+                <div className="flex flex-col gap-6 w-[340px] flex-shrink-0">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={40}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-primary/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -414,8 +603,146 @@ export const FullScreenCanvas = () => {
                       </div>
                     </div>
                   </CanvasCard>
+                </div>
 
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={25}>
+                {/* Column 2c - LinkedIn Post */}
+                <div className="flex flex-col gap-6 w-[340px] flex-shrink-0">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={45}>
+                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-blue-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                          <Share2 className="w-4 h-4 text-blue-500" />
+                        </div>
+                        <span className="font-medium text-foreground">LinkedIn Post</span>
+                      </div>
+                      <div className="p-4">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 rounded-full overflow-hidden">
+                            <img src={storychiefLogo} alt="StoryChief" className="w-full h-full object-cover" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-foreground">StoryChief</p>
+                            <p className="text-xs text-muted-foreground">15,423 followers</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-foreground leading-relaxed">
+                          🏆 The Yearly Marketing Awards are here! Celebrate excellence in marketing with us.
+                          <br /><br />
+                          Nominate your best campaigns. Get recognized. Win big.
+                        </p>
+                        <div className="mt-4 pt-3 border-t border-border flex items-center gap-4 text-xs text-muted-foreground">
+                          <span>👍 24</span>
+                          <span>💬 8</span>
+                          <span>🔄 12</span>
+                        </div>
+                      </div>
+                    </div>
+                  </CanvasCard>
+                </div>
+
+                {/* Column 2d - Video Script */}
+                <div className="flex flex-col gap-6 w-[340px] flex-shrink-0 h-full">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={50} className="flex-1 flex">
+                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden flex flex-col flex-1">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-amber-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                          <PenTool className="w-4 h-4 text-amber-500" />
+                        </div>
+                        <span className="font-medium text-foreground">Video Script</span>
+                      </div>
+                      <div className="p-4 space-y-4 flex-1">
+                        {[
+                          { time: "00:00", text: "Hook: \"What makes a marketing campaign truly award-worthy?\"", type: "hook" },
+                          { time: "00:08", text: "Introducing the Yearly Marketing Awards — celebrating excellence.", type: "intro" },
+                          { time: "00:15", text: "[Demo: Award nominees showcase reel]", type: "visual" },
+                          { time: "00:25", text: "Past winners share their strategies and success stories.", type: "content" },
+                          { time: "00:35", text: "[B-roll: Creative team collaborating]", type: "visual" },
+                          { time: "00:45", text: "Nominate. Compete. Win recognition from industry leaders.", type: "outro" },
+                          { time: "00:55", text: "CTA: Submit your nomination today!", type: "cta" },
+                        ].map((item, i) => (
+                          <div key={i} className="flex gap-3">
+                            <span className="text-xs font-mono text-primary font-medium w-12 flex-shrink-0">{item.time}</span>
+                            <p className={`text-sm leading-relaxed ${item.type === "visual" ? "text-muted-foreground italic" : "text-foreground"}`}>
+                              {item.text}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </CanvasCard>
+                </div>
+
+                {/* Column 2e - Promo Video */}
+                <div className="flex flex-col gap-6 w-[360px] flex-shrink-0">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={55}>
+                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-pink-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center">
+                          <Video className="w-4 h-4 text-pink-500" />
+                        </div>
+                        <span className="font-medium text-foreground">Promo Video</span>
+                        <span className="ml-auto px-2 py-0.5 bg-pink-100 text-pink-700 text-xs rounded-full font-medium">Rendering</span>
+                      </div>
+                      <div className="p-4">
+                        <div className="relative w-full aspect-video rounded-lg overflow-hidden">
+                          <img src={videoThumbnail} alt="Video thumbnail" className="w-full h-full object-cover" />
+                          <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center cursor-pointer hover:bg-white/30 transition-all hover:scale-105 border border-white/30">
+                              <Play className="w-6 h-6 text-white ml-1" />
+                            </div>
+                          </div>
+                          <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                            <span className="px-2 py-1 bg-black/60 backdrop-blur-sm rounded text-xs text-white font-medium">0:45</span>
+                            <span className="px-2 py-1 bg-black/60 backdrop-blur-sm rounded text-xs text-white">1080p</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CanvasCard>
+                </div>
+
+                {/* Column 2f - Generated Images */}
+                <div className="flex flex-col gap-6 w-[360px] flex-shrink-0">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={60}>
+                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-rose-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center">
+                          <Image className="w-4 h-4 text-rose-500" />
+                        </div>
+                        <span className="font-medium text-foreground">Generated Images</span>
+                        <Zap className="w-4 h-4 text-rose-500 ml-auto" />
+                      </div>
+                      <div className="p-4">
+                        <div className="grid grid-cols-2 gap-3">
+                          {[
+                            { image: promoImage1, label: "Hero" },
+                            { image: promoImage2, label: "Social" },
+                            { image: promoImage3, label: "Blog" },
+                            { image: promoImage4, label: "Ad" },
+                          ].map((item, i) => (
+                            <div key={i} className="relative group">
+                              <div className="aspect-square rounded-lg overflow-hidden cursor-pointer transition-all group-hover:scale-[1.02] group-hover:shadow-lg">
+                                <img src={item.image} alt={item.label} className="w-full h-full object-cover" />
+                              </div>
+                              <span className="absolute bottom-2 left-2 px-1.5 py-0.5 bg-black/60 backdrop-blur-sm rounded text-[10px] text-white font-medium">
+                                {item.label}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </CanvasCard>
+                </div>
+
+                {/* Section Divider */}
+                <SectionDivider title="Export" scrollProgress={scrollProgress} revealAt={68} />
+
+                {/* ==================== SECTION 3: Export & Publish ==================== */}
+
+                {/* Column 3a - Schedule */}
+                <div className="flex flex-col gap-6 w-[320px] flex-shrink-0">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={72}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-cyan-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center">
@@ -448,176 +775,71 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
                 </div>
 
-                {/* Column 3 - Landing Page & Video */}
-                <div className="flex flex-col gap-6 w-[400px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={35}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-violet-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
-                          <Layout className="w-4 h-4 text-violet-500" />
-                        </div>
-                        <span className="font-medium text-foreground">Landing Page</span>
-                        <ExternalLink className="w-4 h-4 text-muted-foreground ml-auto cursor-pointer hover:text-foreground transition-colors" />
-                      </div>
-                      <div className="p-4">
-                        <div className="w-full aspect-[16/10] rounded-lg overflow-hidden border border-border">
-                          <img src={landingPage} alt="Landing page" className="w-full h-full object-cover" />
-                        </div>
-                      </div>
-                    </div>
-                  </CanvasCard>
-
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={45}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-pink-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center">
-                          <Video className="w-4 h-4 text-pink-500" />
-                        </div>
-                        <span className="font-medium text-foreground">Promo Video</span>
-                        <span className="ml-auto px-2 py-0.5 bg-pink-100 text-pink-700 text-xs rounded-full font-medium">Rendering</span>
-                      </div>
-                      <div className="p-4">
-                        <div className="relative w-full aspect-video rounded-lg overflow-hidden">
-                          <img src={videoThumbnail} alt="Video thumbnail" className="w-full h-full object-cover" />
-                          <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                            <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center cursor-pointer hover:bg-white/30 transition-all hover:scale-105 border border-white/30">
-                              <Play className="w-6 h-6 text-white ml-1" />
-                            </div>
-                          </div>
-                          <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                            <span className="px-2 py-1 bg-black/60 backdrop-blur-sm rounded text-xs text-white font-medium">0:45</span>
-                            <span className="px-2 py-1 bg-black/60 backdrop-blur-sm rounded text-xs text-white">1080p</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CanvasCard>
-                </div>
-
-                {/* Column 4 - LinkedIn Post & Newsletter */}
+                {/* Column 3b - Export Code (NEW) */}
                 <div className="flex flex-col gap-6 w-[340px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={55}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={78}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-blue-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                          <Share2 className="w-4 h-4 text-blue-500" />
+                      <div className="flex items-center gap-2 px-4 py-3 bg-slate-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-slate-500/10 flex items-center justify-center">
+                          <Code className="w-4 h-4 text-slate-600" />
                         </div>
-                        <span className="font-medium text-foreground">LinkedIn Post</span>
-                      </div>
-                      <div className="p-4">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-10 h-10 rounded-full overflow-hidden">
-                            <img src={storychiefLogo} alt="StoryChief" className="w-full h-full object-cover" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-foreground">StoryChief</p>
-                            <p className="text-xs text-muted-foreground">15,423 followers</p>
-                          </div>
-                        </div>
-                        <p className="text-sm text-foreground leading-relaxed">
-                          🏆 The Yearly Marketing Awards are here! Celebrate excellence in marketing with us.
-                          <br /><br />
-                          Nominate your best campaigns. Get recognized. Win big.
-                        </p>
-                        <div className="mt-4 pt-3 border-t border-border flex items-center gap-4 text-xs text-muted-foreground">
-                          <span>👍 24</span>
-                          <span>💬 8</span>
-                          <span>🔄 12</span>
-                        </div>
-                      </div>
-                    </div>
-                  </CanvasCard>
-
-                  {/* Newsletter Draft - NEW */}
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={59}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-green-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
-                          <Mail className="w-4 h-4 text-green-600" />
-                        </div>
-                        <span className="font-medium text-foreground">Newsletter</span>
-                        <span className="ml-auto px-2 py-0.5 bg-amber-100 text-amber-700 text-xs rounded-full font-medium">Draft</span>
+                        <span className="font-medium text-foreground">Export Code</span>
+                        <Download className="w-4 h-4 text-muted-foreground ml-auto cursor-pointer hover:text-foreground transition-colors" />
                       </div>
                       <div className="p-4 space-y-3">
-                        <div className="text-xs text-muted-foreground">
-                          <span className="font-medium">Subject:</span> You're Invited: Yearly Marketing Awards 2024
+                        <div className="bg-slate-900 rounded-lg p-3 overflow-hidden">
+                          <pre className="text-xs text-slate-300 font-mono overflow-x-auto">
+{`<section class="hero">
+  <h1>Marketing Awards</h1>
+  <p>Celebrate excellence</p>
+  <button>Nominate Now</button>
+</section>`}
+                          </pre>
                         </div>
-                        <div className="p-3 bg-muted/30 rounded-lg space-y-2">
-                          <p className="text-sm font-medium text-foreground">Hi [First Name],</p>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            The nominations are open! Submit your best marketing campaigns and join the industry leaders...
-                          </p>
-                          <div className="flex gap-2 mt-3">
-                            <span className="px-3 py-1.5 bg-primary text-primary-foreground text-xs rounded font-medium">Nominate Now →</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-between text-xs text-muted-foreground">
-                          <span>12,450 subscribers</span>
-                          <span>Est. open rate: 34%</span>
+                        <div className="flex gap-2">
+                          <button className="flex-1 py-2 px-3 bg-muted/50 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors flex items-center justify-center gap-2">
+                            <Code className="w-4 h-4" />
+                            HTML
+                          </button>
+                          <button className="flex-1 py-2 px-3 bg-muted/50 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                            React
+                          </button>
+                          <button className="flex-1 py-2 px-3 bg-muted/50 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                            Vue
+                          </button>
                         </div>
                       </div>
                     </div>
                   </CanvasCard>
                 </div>
 
-                {/* Column 5 - Video Script */}
-                <div className="flex flex-col gap-6 w-[340px] flex-shrink-0 h-full">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={65} className="flex-1 flex">
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden flex flex-col flex-1">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-amber-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                          <PenTool className="w-4 h-4 text-amber-500" />
-                        </div>
-                        <span className="font-medium text-foreground">Video Script</span>
-                      </div>
-                      <div className="p-4 space-y-4 flex-1">
-                        {[
-                          { time: "00:00", text: "Hook: \"What makes a marketing campaign truly award-worthy?\"", type: "hook" },
-                          { time: "00:08", text: "Introducing the Yearly Marketing Awards — celebrating excellence.", type: "intro" },
-                          { time: "00:15", text: "[Demo: Award nominees showcase reel]", type: "visual" },
-                          { time: "00:25", text: "Past winners share their strategies and success stories.", type: "content" },
-                          { time: "00:35", text: "[B-roll: Creative team collaborating]", type: "visual" },
-                          { time: "00:45", text: "Nominate. Compete. Win recognition from industry leaders.", type: "outro" },
-                          { time: "00:55", text: "CTA: Submit your nomination today!", type: "cta" },
-                        ].map((item, i) => (
-                          <div key={i} className="flex gap-3">
-                            <span className="text-xs font-mono text-primary font-medium w-12 flex-shrink-0">{item.time}</span>
-                            <p className={`text-sm leading-relaxed ${item.type === "visual" ? "text-muted-foreground italic" : "text-foreground"}`}>
-                              {item.text}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </CanvasCard>
-                </div>
-
-                {/* Column 6 - Generated Images & AI Badge */}
+                {/* Column 3c - Integrations (NEW) */}
                 <div className="flex flex-col gap-6 w-[360px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={75}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={85}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-rose-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center">
-                          <Image className="w-4 h-4 text-rose-500" />
+                      <div className="flex items-center gap-2 px-4 py-3 bg-purple-500/5 border-b border-border">
+                        <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                          <Globe className="w-4 h-4 text-purple-600" />
                         </div>
-                        <span className="font-medium text-foreground">Generated Images</span>
-                        <Zap className="w-4 h-4 text-rose-500 ml-auto" />
+                        <span className="font-medium text-foreground">Publish To</span>
                       </div>
                       <div className="p-4">
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-4 gap-3">
                           {[
-                            { image: promoImage1, label: "Hero" },
-                            { image: promoImage2, label: "Social" },
-                            { image: promoImage3, label: "Blog" },
-                            { image: promoImage4, label: "Ad" },
-                          ].map((item, i) => (
-                            <div key={i} className="relative group">
-                              <div className="aspect-square rounded-lg overflow-hidden cursor-pointer transition-all group-hover:scale-[1.02] group-hover:shadow-lg">
-                                <img src={item.image} alt={item.label} className="w-full h-full object-cover" />
+                            { name: "WordPress", icon: "W", color: "bg-blue-600" },
+                            { name: "LinkedIn", icon: "in", color: "bg-blue-700" },
+                            { name: "Instagram", icon: "📷", color: "bg-gradient-to-br from-purple-500 to-pink-500" },
+                            { name: "Facebook", icon: "f", color: "bg-blue-500" },
+                            { name: "TikTok", icon: "♪", color: "bg-black" },
+                            { name: "X", icon: "𝕏", color: "bg-black" },
+                            { name: "Threads", icon: "@", color: "bg-black" },
+                            { name: "Pinterest", icon: "P", color: "bg-red-600" },
+                          ].map((platform, i) => (
+                            <div key={i} className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer group">
+                              <div className={`w-10 h-10 rounded-lg ${platform.color} flex items-center justify-center text-white font-bold text-sm group-hover:scale-105 transition-transform`}>
+                                {platform.icon}
                               </div>
-                              <span className="absolute bottom-2 left-2 px-1.5 py-0.5 bg-black/60 backdrop-blur-sm rounded text-[10px] text-white font-medium">
-                                {item.label}
-                              </span>
+                              <span className="text-xs text-muted-foreground">{platform.name}</span>
                             </div>
                           ))}
                         </div>
@@ -625,36 +847,7 @@ export const FullScreenCanvas = () => {
                     </div>
                   </CanvasCard>
 
-                  {/* Instagram Post Draft */}
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={80}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-purple-500/5 to-pink-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500/10 to-pink-500/10 flex items-center justify-center">
-                          <Image className="w-4 h-4 text-purple-500" />
-                        </div>
-                        <span className="font-medium text-foreground">Instagram Post</span>
-                        <span className="ml-auto px-2 py-0.5 bg-amber-100 text-amber-700 text-xs rounded-full font-medium">Draft</span>
-                      </div>
-                      <div className="p-4">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-pink-500/30">
-                            <img src={storychiefLogo} alt="StoryChief" className="w-full h-full object-cover" />
-                          </div>
-                          <span className="text-sm font-medium text-foreground">storychief</span>
-                        </div>
-                        <div className="aspect-square w-full rounded-lg overflow-hidden mb-3 bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
-                          <img src={promoImage1} alt="Instagram post" className="w-full h-full object-cover" />
-                        </div>
-                        <p className="text-sm text-foreground leading-relaxed">
-                          🏆 The wait is over! Nominations for the Yearly Marketing Awards are NOW OPEN.
-                          <br /><br />
-                          <span className="text-primary">#MarketingAwards #ContentCreation #MarketingExcellence</span>
-                        </p>
-                      </div>
-                    </div>
-                  </CanvasCard>
-
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={88} className="self-end mt-auto">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={90} className="self-end">
                     <div className="flex items-center gap-3 px-5 py-3 bg-card/90 backdrop-blur-md rounded-full border border-primary/30 shadow-lg">
                       <div className="w-8 h-8 rounded-full overflow-hidden">
                         <img src={storychiefLogo} alt="StoryChief AI" className="w-full h-full object-cover" />
@@ -667,7 +860,7 @@ export const FullScreenCanvas = () => {
 
                 {/* Column - CTA Button */}
                 <div className="flex flex-col gap-6 w-[280px] flex-shrink-0 justify-center">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={88}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={92}>
                     <button className="w-full py-5 px-8 text-white rounded-xl font-semibold text-lg shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-3" style={{ backgroundImage: 'var(--gradient-hero)' }}>
                       <Calendar className="w-5 h-5" />
                       Schedule Campaign
@@ -685,7 +878,12 @@ export const FullScreenCanvas = () => {
       {scrollProgress < 95 && <ScrollProgress progress={scrollProgress} />}
       
       {/* Gradient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to top, hsl(var(--background)), transparent)'
+        }}
+      />
     </section>
   );
 };
