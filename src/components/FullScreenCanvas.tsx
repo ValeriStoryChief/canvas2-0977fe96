@@ -9,6 +9,7 @@ import {
 // Import assets
 import storychiefLogo from "@/assets/storychief-logo.png";
 import userAvatar from "@/assets/user-avatar.png";
+import aiAvatar from "@/assets/ai-avatar.jpg";
 import blogCover from "@/assets/blog-cover.jpg";
 import landingPage from "@/assets/landing-page.jpg";
 import videoThumbnail from "@/assets/video-thumbnail.jpg";
@@ -122,7 +123,7 @@ const ChatBubble = ({ role, text, visible }: { role: "user" | "ai"; text: string
         {role === "user" ? (
           <img src={userAvatar} alt="User" className="w-full h-full object-cover" />
         ) : (
-          <img src={storychiefLogo} alt="StoryChief AI" className="w-full h-full object-cover" />
+          <img src={aiAvatar} alt="AI Assistant" className="w-full h-full object-cover" />
         )}
       </div>
       <div className={`px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed max-w-[240px] ${
