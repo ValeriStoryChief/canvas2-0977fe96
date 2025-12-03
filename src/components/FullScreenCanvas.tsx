@@ -623,14 +623,6 @@ export const FullScreenCanvas = () => {
                     </div>
                   </CanvasCard>
 
-                  {/* CTA Button */}
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={80}>
-                    <button className="w-full py-4 px-6 bg-primary text-primary-foreground rounded-xl font-semibold text-lg shadow-lg hover:bg-primary/90 transition-all hover:scale-[1.02] flex items-center justify-center gap-3">
-                      <Calendar className="w-5 h-5" />
-                      Schedule Campaign
-                    </button>
-                  </CanvasCard>
-
                   <CanvasCard scrollProgress={scrollProgress} revealAt={85} className="self-end mt-auto">
                     <div className="flex items-center gap-3 px-5 py-3 bg-card/90 backdrop-blur-md rounded-full border border-primary/30 shadow-lg">
                       <div className="w-8 h-8 rounded-full overflow-hidden">
@@ -639,6 +631,16 @@ export const FullScreenCanvas = () => {
                       <span className="font-medium text-foreground">AI-Generated Campaign</span>
                       <ChevronRight className="w-4 h-4 text-primary" />
                     </div>
+                  </CanvasCard>
+                </div>
+
+                {/* Column - CTA Button */}
+                <div className="flex flex-col gap-6 w-[280px] flex-shrink-0 justify-center">
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={88}>
+                    <button className="w-full py-5 px-8 text-white rounded-xl font-semibold text-lg shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-3" style={{ backgroundImage: 'var(--gradient-hero)' }}>
+                      <Calendar className="w-5 h-5" />
+                      Schedule Campaign
+                    </button>
                   </CanvasCard>
                 </div>
 
