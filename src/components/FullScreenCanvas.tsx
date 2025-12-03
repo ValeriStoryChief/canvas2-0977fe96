@@ -56,7 +56,7 @@ const MiroCursor = ({
         <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.48 0 .72-.58.38-.92L6.35 2.79a.5.5 0 0 0-.85.42Z" stroke="white" strokeWidth="1.5"/>
       </svg>
       <div 
-        className="absolute left-4 top-4 flex items-center gap-1.5 px-2 py-1 rounded-full text-white text-xs font-medium whitespace-nowrap shadow-lg"
+        className="absolute left-4 top-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-medium whitespace-nowrap shadow-lg"
         style={{ backgroundColor: color }}
       >
         {avatar ? (
