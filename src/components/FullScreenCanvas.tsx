@@ -146,24 +146,42 @@ export const FullScreenCanvas = () => {
           }}
         />
 
-        {/* Main Layout */}
-        <div className="relative w-full h-full flex">
+        {/* Canvas toolbar - positioned at top */}
+        <div className="absolute top-0 left-0 right-0 h-14 bg-card/95 backdrop-blur-md border-b border-border flex items-center px-6 z-40">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center shadow-md">
+              <Sparkles className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-foreground">StoryChief AI</h3>
+              <p className="text-xs text-muted-foreground">Campaign Assistant</p>
+            </div>
+          </div>
+          <div className="h-6 w-px bg-border mx-6" />
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+          </div>
+          <div className="h-6 w-px bg-border mx-4" />
+          <span className="font-medium text-foreground">Canvas Feature Launch Campaign</span>
+          <div className="ml-auto flex items-center gap-4">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Users className="w-4 h-4" />
+              <span>3 collaborators</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 rounded-full border border-green-500/20">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-xs font-medium text-green-600">Auto-saved</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Layout - starts below toolbar */}
+        <div className="relative w-full h-full pt-14 flex">
           
           {/* Conversation Sidebar */}
           <div className="w-[320px] h-full bg-card/95 backdrop-blur-md border-r border-border z-30 flex flex-col flex-shrink-0">
-            {/* Header */}
-            <div className="p-5 border-b border-border">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center shadow-md">
-                  <Sparkles className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">StoryChief AI</h3>
-                  <p className="text-xs text-muted-foreground">Campaign Assistant</p>
-                </div>
-              </div>
-            </div>
-
             {/* Messages */}
             <div className="flex-1 p-5 space-y-4 overflow-y-auto">
               <ChatBubble 
@@ -216,27 +234,6 @@ export const FullScreenCanvas = () => {
 
           {/* Canvas Area */}
           <div className="flex-1 h-full flex flex-col overflow-hidden">
-            {/* Canvas toolbar */}
-            <div className="h-14 bg-card/80 backdrop-blur-md border-b border-border flex items-center px-6 z-20 flex-shrink-0">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-400" />
-                <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                <div className="w-3 h-3 rounded-full bg-green-400" />
-              </div>
-              <div className="h-6 w-px bg-border mx-4" />
-              <span className="font-medium text-foreground">Canvas Feature Launch Campaign</span>
-              <div className="ml-auto flex items-center gap-4">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Users className="w-4 h-4" />
-                  <span>3 collaborators</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 rounded-full border border-green-500/20">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-xs font-medium text-green-600">Auto-saved</span>
-                </div>
-              </div>
-            </div>
-
             {/* Horizontally scrolling canvas content */}
             <div className="flex-1 overflow-hidden">
               <div 
