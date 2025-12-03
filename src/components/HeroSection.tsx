@@ -29,13 +29,10 @@ export const HeroSection = () => {
             Powered by AI, designed for teams.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up animation-delay-300">
-            <Button variant="hero" size="xl">
-              Start for Free
-            </Button>
-            <Button variant="hero-outline" size="xl">
-              Book a Demo
+          {/* CTA Button */}
+          <div className="flex items-center justify-center animate-fade-up animation-delay-300">
+            <Button variant="hero" size="xl" asChild>
+              <a href="https://www.storychief.io/#demo">Book a Demo</a>
             </Button>
           </div>
 
