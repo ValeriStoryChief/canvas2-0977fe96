@@ -36,7 +36,7 @@ const SectionProgress = ({ scrollProgress }: { scrollProgress: number }) => {
   const currentSection = getCurrentSection();
 
   return (
-    <div className="absolute top-20 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 px-4 py-2 bg-card/95 backdrop-blur-md rounded-full border border-border shadow-lg">
+    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 bg-card/95 backdrop-blur-md rounded-full border border-border shadow-lg">
       {sections.map((section, i) => {
         const isActive = i === currentSection;
         const isPast = i < currentSection;
@@ -352,8 +352,6 @@ export const FullScreenCanvas = () => {
           </div>
         </div>
 
-        {/* Section Progress Indicator */}
-        <SectionProgress scrollProgress={scrollProgress} />
 
         {/* Main Layout - starts below toolbar */}
         <div className="relative w-full h-full pt-14 flex overflow-visible">
@@ -874,8 +872,13 @@ export const FullScreenCanvas = () => {
         </div>
       </div>
 
-      {/* Scroll Progress */}
-      {scrollProgress < 95 && <ScrollProgress progress={scrollProgress} />}
+      {/* Section Progress & Scroll Progress */}
+      {scrollProgress < 95 && (
+        <>
+          <SectionProgress scrollProgress={scrollProgress} />
+          <ScrollProgress progress={scrollProgress} />
+        </>
+      )}
       
       {/* Gradient glow */}
       <div 
