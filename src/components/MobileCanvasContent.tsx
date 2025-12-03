@@ -43,15 +43,6 @@ const MobileCard = ({
   );
 };
 
-// Section Header
-const SectionHeader = ({ title, isActive }: { title: string; isActive: boolean }) => (
-  <div className="mobile-section-header">
-    <h3 className={`text-sm font-semibold ${isActive ? "text-primary" : "text-muted-foreground"}`}>
-      {title}
-    </h3>
-  </div>
-);
-
 export const MobileCanvasContent = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -109,10 +100,9 @@ export const MobileCanvasContent = () => {
 
         <div className="relative z-10 px-4 pb-24 space-y-4">
           {/* ========== SECTION 1: Research & Brainstorm ========== */}
-          <SectionHeader title="Research & Brainstorm" isActive={scrollProgress < 33} />
 
           {/* Keyword Research */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={5}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={0}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-emerald-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-emerald-500/10 flex items-center justify-center">
@@ -149,7 +139,7 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* Longtail Opportunities */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={12}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={3}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-teal-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-teal-500/10 flex items-center justify-center">
@@ -173,7 +163,7 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* Tasks */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={20}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={8}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-indigo-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-indigo-500/10 flex items-center justify-center">
@@ -207,10 +197,9 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* ========== SECTION 2: Create & Repurpose ========== */}
-          <SectionHeader title="Create & Repurpose" isActive={scrollProgress >= 33 && scrollProgress < 70} />
 
           {/* Landing Page */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={35}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={18}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-violet-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-violet-500/10 flex items-center justify-center">
@@ -228,7 +217,7 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* Blog Article */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={40}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={25}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-primary/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -256,7 +245,7 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* LinkedIn Post */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={45}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={32}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-blue-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-blue-500/10 flex items-center justify-center">
@@ -287,7 +276,7 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* Video Script */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={50}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={40}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-amber-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center">
@@ -312,7 +301,7 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* Promo Video */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={55}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={48}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-pink-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-pink-500/10 flex items-center justify-center">
@@ -339,7 +328,7 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* Generated Images */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={60}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={55}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-rose-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-rose-500/10 flex items-center justify-center">
@@ -371,10 +360,9 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* ========== SECTION 3: Export & Publish ========== */}
-          <SectionHeader title="Export & Publish" isActive={scrollProgress >= 70} />
 
           {/* Schedule */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={72}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={65}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-cyan-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center">
@@ -406,7 +394,7 @@ export const MobileCanvasContent = () => {
           </MobileCard>
 
           {/* Export Code */}
-          <MobileCard scrollProgress={scrollProgress} revealAt={80}>
+          <MobileCard scrollProgress={scrollProgress} revealAt={75}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-slate-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-slate-500/10 flex items-center justify-center">
