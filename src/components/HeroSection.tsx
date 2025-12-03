@@ -19,7 +19,7 @@ export const HeroSection = () => {
 
           {/* Main Headline */}
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6 animate-fade-up animation-delay-100">
-            Make your ideas{" "}
+            Where your ideas{" "}
             <span className="text-gradient">become reality</span>
           </h1>
 
