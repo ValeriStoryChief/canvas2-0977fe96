@@ -44,25 +44,25 @@ const MiroCursor = ({
   
   return (
     <div 
-      className="absolute z-50 pointer-events-none transition-all duration-300 ease-out"
+      className="absolute z-50 pointer-events-none transition-all duration-300 ease-out flex items-start gap-1"
       style={{ 
         left: `${x}%`, 
         top: `${y}%`,
         opacity: scrollProgress > 5 ? 1 : 0
       }}
     >
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="drop-shadow-lg">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="drop-shadow-lg flex-shrink-0">
         <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.48 0 .72-.58.38-.92L6.35 2.79a.5.5 0 0 0-.85.42Z" fill={color}/>
         <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.48 0 .72-.58.38-.92L6.35 2.79a.5.5 0 0 0-.85.42Z" stroke="white" strokeWidth="1.5"/>
       </svg>
       <div 
-        className="absolute left-4 top-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-medium whitespace-nowrap shadow-lg"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-medium whitespace-nowrap shadow-lg mt-2"
         style={{ backgroundColor: color }}
       >
         {avatar ? (
-          <img src={avatar} alt={name} className="w-4 h-4 rounded-full object-cover" />
+          <img src={avatar} alt={name} className="w-4 h-4 rounded-full object-cover flex-shrink-0" />
         ) : null}
-        {name}
+        <span>{name}</span>
       </div>
     </div>
   );
@@ -186,11 +186,11 @@ export const FullScreenCanvas = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="relative w-full bg-background"
+      className="relative w-full bg-background overflow-visible"
       style={{ height: '220vh' }}
     >
       {/* Sticky container */}
-      <div className="sticky top-16 w-full h-[calc(100vh-4rem)] overflow-visible">
+      <div className="sticky top-16 w-full h-[calc(100vh-4rem)] overflow-visible clip-none">
         {/* Background Grid */}
         <div 
           className="absolute inset-0 opacity-40"
@@ -208,30 +208,30 @@ export const FullScreenCanvas = () => {
           name="Sarah" 
           color="#8B5CF6" 
           scrollProgress={scrollProgress}
-          startX={25}
-          startY={30}
-          endX={70}
-          endY={40}
+          startX={35}
+          startY={35}
+          endX={65}
+          endY={45}
           avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
         />
         <MiroCursor 
           name="Mike" 
           color="#10B981" 
           scrollProgress={scrollProgress}
-          startX={40}
-          startY={60}
-          endX={85}
-          endY={25}
+          startX={50}
+          startY={55}
+          endX={75}
+          endY={30}
           avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
         />
         <MiroCursor 
           name="Emma" 
           color="#F59E0B" 
           scrollProgress={scrollProgress}
-          startX={60}
-          startY={20}
-          endX={55}
-          endY={70}
+          startX={55}
+          startY={25}
+          endX={45}
+          endY={65}
           avatar="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop"
         />
 
@@ -275,7 +275,7 @@ export const FullScreenCanvas = () => {
         </div>
 
         {/* Main Layout - starts below toolbar */}
-        <div className="relative w-full h-full pt-14 flex">
+        <div className="relative w-full h-full pt-14 flex overflow-visible">
           
           {/* Conversation Sidebar */}
           <div className="w-[320px] h-full bg-card/95 backdrop-blur-md border-r border-border z-30 flex flex-col flex-shrink-0">
