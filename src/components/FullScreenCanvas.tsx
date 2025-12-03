@@ -330,7 +330,7 @@ export const FullScreenCanvas = () => {
             </div>
           </div>
           <div className="h-6 w-px bg-border mx-6" />
-          <span className="font-medium text-foreground">Yearly Marketing Awards Campaign</span>
+          <span className="font-medium text-foreground">AI Assisted Campaigns</span>
           <div className="ml-auto flex items-center gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Users className="w-4 h-4" />
@@ -361,17 +361,17 @@ export const FullScreenCanvas = () => {
             <div className="flex-1 p-5 space-y-4 overflow-y-auto">
               <ChatBubble 
                 role="user" 
-                text="Create a launch campaign for our yearly marketing awards event. We need to rank in Google, be mentioned in ChatGPT. Create all the necessary assets." 
+                text="Help us create content about collaborating with AI for marketing campaigns. We need blog posts, social content, and visuals." 
                 visible={scrollProgress >= 3}
               />
               <ChatBubble 
                 role="ai" 
-                text="I'll create a comprehensive campaign with keyword research, blog content, social posts, and marketing assets." 
+                text="I'll help you create content about AI collaboration with keyword research, blog posts, social content, and team imagery." 
                 visible={scrollProgress >= 8}
               />
               <ChatBubble 
                 role="user" 
-                text="Add a landing page and promo video too" 
+                text="Add a landing page and explainer video too" 
                 visible={scrollProgress >= 35}
               />
               <ChatBubble 
@@ -381,12 +381,12 @@ export const FullScreenCanvas = () => {
               />
               <ChatBubble 
                 role="user" 
-                text="Generate some promotional images" 
+                text="Generate images of teams working together" 
                 visible={scrollProgress >= 55}
               />
               <ChatBubble 
                 role="ai" 
-                text="I've generated 4 promotional images optimized for different channels. Check them on your canvas!" 
+                text="I've generated 4 team collaboration images optimized for different channels. Check them on your canvas!" 
                 visible={scrollProgress >= 60}
               />
               <ChatBubble 
@@ -454,10 +454,10 @@ export const FullScreenCanvas = () => {
                           </thead>
                           <tbody className="text-foreground">
                             {[
-                              { kw: "marketing awards 2024", vol: "8.2K", diff: "Med", color: "text-yellow-500" },
-                              { kw: "best marketing campaigns", vol: "12.1K", diff: "High", color: "text-red-500" },
-                              { kw: "content marketing awards", vol: "3.4K", diff: "Low", color: "text-green-500" },
-                              { kw: "digital marketing awards", vol: "6.7K", diff: "Med", color: "text-yellow-500" },
+                              { kw: "AI marketing collaboration", vol: "9.1K", diff: "Med", color: "text-yellow-500" },
+                              { kw: "AI content creation tools", vol: "15.2K", diff: "High", color: "text-red-500" },
+                              { kw: "AI assisted campaigns", vol: "4.8K", diff: "Low", color: "text-green-500" },
+                              { kw: "team AI workflow", vol: "5.3K", diff: "Med", color: "text-yellow-500" },
                             ].map((row, i) => (
                               <tr key={i} className="border-b border-border/50 last:border-0 hover:bg-muted/30 transition-colors">
                                 <td className="py-2">{row.kw}</td>
@@ -481,9 +481,9 @@ export const FullScreenCanvas = () => {
                       </div>
                       <div className="p-4 space-y-2">
                         {[
-                          { kw: "how to submit for marketing awards", opportunity: "High" },
-                          { kw: "best b2b marketing awards 2024", opportunity: "High" },
-                          { kw: "winning marketing award tips", opportunity: "High" },
+                          { kw: "how to use AI for marketing teams", opportunity: "High" },
+                          { kw: "best AI tools for content creation", opportunity: "High" },
+                          { kw: "AI collaboration workflow tips", opportunity: "High" },
                         ].map((row, i) => (
                           <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                             <span className="text-sm text-foreground">{row.kw}</span>
@@ -569,7 +569,7 @@ export const FullScreenCanvas = () => {
                           <img src={blogCover} alt="Blog cover" className="w-full h-full object-cover" />
                         </div>
                         <h4 className="font-semibold text-foreground mb-1 text-sm">
-                          The Ultimate Guide to Winning Marketing Awards
+                          How AI and Teams Create Better Campaigns Together
                         </h4>
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
@@ -604,7 +604,7 @@ export const FullScreenCanvas = () => {
                           </div>
                         </div>
                         <p className="text-sm text-foreground leading-relaxed">
-                          🏆 The Yearly Marketing Awards are here! Celebrate excellence in marketing with us.
+                          🤝 Discover how AI collaboration transforms your marketing workflow. Work smarter, create faster.
                         </p>
                         <div className="mt-3 pt-2 border-t border-border flex items-center gap-4 text-xs text-muted-foreground">
                           <span>👍 24</span>
@@ -625,10 +625,10 @@ export const FullScreenCanvas = () => {
                       </div>
                       <div className="p-4 space-y-3">
                         {[
-                          { time: "00:00", text: "Hook: \"What makes a campaign award-worthy?\"" },
-                          { time: "00:08", text: "Introducing the Yearly Marketing Awards" },
-                          { time: "00:25", text: "Past winners share their strategies" },
-                          { time: "00:45", text: "CTA: Submit your nomination today!" },
+                          { time: "00:00", text: "Hook: \"What if AI could supercharge your team?\"" },
+                          { time: "00:08", text: "Introducing AI-assisted campaign creation" },
+                          { time: "00:25", text: "Teams share their collaboration workflows" },
+                          { time: "00:45", text: "CTA: Start collaborating with AI today!" },
                         ].map((item, i) => (
                           <div key={i} className="flex gap-3">
                             <span className="text-xs font-mono text-primary font-medium w-10 flex-shrink-0">{item.time}</span>
@@ -751,8 +751,8 @@ export const FullScreenCanvas = () => {
                         <div className="bg-slate-900 rounded-lg p-3 overflow-hidden">
                           <pre className="text-xs text-slate-300 font-mono overflow-x-auto">
 {`<section class="hero">
-  <h1>Awards</h1>
-  <button>Nominate</button>
+  <h1>AI Campaigns</h1>
+  <button>Get Started</button>
 </section>`}
                           </pre>
                         </div>
