@@ -156,9 +156,12 @@ export const FullScreenCanvas = () => {
       const scrollableDistance = sectionHeight - viewportHeight;
       const scrolled = -sectionTop;
       
+      // Initial offset to start content further scrolled (so first card appears where second was)
+      const initialOffset = 300;
+      
       if (scrolled < 0) {
         setScrollProgress(0);
-        content.style.transform = 'translateX(0)';
+        content.style.transform = `translateX(-${initialOffset}px)`;
         return;
       }
       
@@ -173,7 +176,7 @@ export const FullScreenCanvas = () => {
       setScrollProgress(progress);
       
       const maxTranslate = content.scrollWidth - (window.innerWidth - 320);
-      const translateX = (scrolled / scrollableDistance) * maxTranslate;
+      const translateX = initialOffset + (scrolled / scrollableDistance) * (maxTranslate - initialOffset);
       content.style.transform = `translateX(-${translateX}px)`;
     };
 
@@ -620,7 +623,15 @@ export const FullScreenCanvas = () => {
                     </div>
                   </CanvasCard>
 
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={78} className="self-end mt-auto">
+                  {/* CTA Button */}
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={80}>
+                    <button className="w-full py-4 px-6 bg-primary text-primary-foreground rounded-xl font-semibold text-lg shadow-lg hover:bg-primary/90 transition-all hover:scale-[1.02] flex items-center justify-center gap-3">
+                      <Calendar className="w-5 h-5" />
+                      Schedule Campaign
+                    </button>
+                  </CanvasCard>
+
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={85} className="self-end mt-auto">
                     <div className="flex items-center gap-3 px-5 py-3 bg-card/90 backdrop-blur-md rounded-full border border-primary/30 shadow-lg">
                       <div className="w-8 h-8 rounded-full overflow-hidden">
                         <img src={storychiefLogo} alt="StoryChief AI" className="w-full h-full object-cover" />
