@@ -15,7 +15,7 @@ interface MobileChatSheetProps {
 }
 
 export const MobileChatSheet = ({ scrollProgress, messages }: MobileChatSheetProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const visibleMessages = messages.filter((msg) => scrollProgress >= msg.revealAt);
 
@@ -50,7 +50,7 @@ export const MobileChatSheet = ({ scrollProgress, messages }: MobileChatSheetPro
           />
 
           {/* Sheet content */}
-          <div className="relative bg-card border-t border-border rounded-t-2xl max-h-[60vh] flex flex-col">
+          <div className="relative bg-card border-t border-border rounded-t-2xl max-h-[35vh] flex flex-col">
             {/* Handle */}
             <div className="flex items-center justify-center pt-3 pb-2">
               <div className="w-10 h-1 bg-muted-foreground/30 rounded-full" />

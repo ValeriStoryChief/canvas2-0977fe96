@@ -5,9 +5,14 @@ import { useMobileCanvas } from "@/hooks/useMobileCanvas";
 const Index = () => {
   const { isMobile, isTablet } = useMobileCanvas();
 
-  // On mobile/tablet, only show the canvas (which has its own toolbar)
+  // On mobile/tablet, show hero + canvas
   if (isMobile || isTablet) {
-    return <FullScreenCanvas />;
+    return (
+      <div className="min-h-screen bg-background">
+        <HeroSection />
+        <FullScreenCanvas />
+      </div>
+    );
   }
 
   return (
