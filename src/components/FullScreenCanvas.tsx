@@ -341,7 +341,7 @@ export const FullScreenCanvas = () => {
                 
                 {/* Column 1 - Keyword Research */}
                 <div className="flex flex-col gap-6 w-[380px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={3}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={10}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-emerald-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
@@ -382,7 +382,7 @@ export const FullScreenCanvas = () => {
 
                 {/* Column 2 - Blog Article & Schedule */}
                 <div className="flex flex-col gap-6 w-[340px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={10}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={17}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-primary/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -412,7 +412,7 @@ export const FullScreenCanvas = () => {
                     </div>
                   </CanvasCard>
 
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={18}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={25}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-cyan-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center">
@@ -447,7 +447,7 @@ export const FullScreenCanvas = () => {
 
                 {/* Column 3 - Landing Page & Video */}
                 <div className="flex flex-col gap-6 w-[400px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={28}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={35}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-violet-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
@@ -464,7 +464,7 @@ export const FullScreenCanvas = () => {
                     </div>
                   </CanvasCard>
 
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={38}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={45}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-pink-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center">
@@ -493,7 +493,7 @@ export const FullScreenCanvas = () => {
 
                 {/* Column 4 - LinkedIn Post & Newsletter */}
                 <div className="flex flex-col gap-6 w-[340px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={48}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={55}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-blue-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
@@ -526,7 +526,7 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
 
                   {/* Newsletter Draft - NEW */}
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={52}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={59}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-green-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
@@ -559,7 +559,7 @@ export const FullScreenCanvas = () => {
 
                 {/* Column 5 - Video Script */}
                 <div className="flex flex-col gap-6 w-[340px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={58}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={65}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-amber-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
@@ -589,7 +589,7 @@ export const FullScreenCanvas = () => {
 
                 {/* Column 6 - Generated Images & AI Badge */}
                 <div className="flex flex-col gap-6 w-[360px] flex-shrink-0">
-                  <CanvasCard scrollProgress={scrollProgress} revealAt={68}>
+                  <CanvasCard scrollProgress={scrollProgress} revealAt={75}>
                     <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-rose-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center">
