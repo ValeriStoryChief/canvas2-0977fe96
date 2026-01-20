@@ -364,8 +364,8 @@ export const FullScreenCanvas = () => {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-border bg-background/50">
-              <div className="flex items-center gap-3 px-4 py-3 bg-muted/50 rounded-xl border border-border">
+            <div className="p-4 bg-background/50">
+              <div className="flex items-center gap-3 px-4 py-3 bg-muted/50 rounded-xl">
                 <input type="text" placeholder="Ask AI to create content..." className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none" disabled />
                 <button className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center hover:bg-primary/90 transition-colors">
                   <Send className="w-4 h-4 text-primary-foreground" />
