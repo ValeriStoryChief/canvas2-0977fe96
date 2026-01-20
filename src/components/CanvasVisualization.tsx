@@ -74,15 +74,15 @@ const ChatMessage = ({ role, text, delay }: { role: "user" | "assistant"; text: 
 
   return (
     <div className={`flex gap-2 ${role === "user" ? "flex-row-reverse" : ""}`}>
-      <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${
+      <div className={`w-6 h-6 rounded flex items-center justify-center flex-shrink-0 ${
         role === "user" ? "bg-primary/20" : "bg-gradient-to-br from-primary to-orange-400"
       }`}>
         {role === "user" ? <User className="w-3 h-3 text-primary" /> : <Bot className="w-3 h-3 text-white" />}
       </div>
-      <div className={`px-3 py-2 rounded-xl text-xs leading-relaxed max-w-[85%] ${
+      <div className={`px-3 py-2 rounded-md text-xs leading-relaxed max-w-[85%] ${
         role === "user" 
-          ? "bg-primary text-primary-foreground rounded-tr-sm" 
-          : "bg-muted text-foreground rounded-tl-sm"
+          ? "bg-primary text-primary-foreground" 
+          : "bg-muted text-foreground"
       }`}>
         {role === "assistant" ? <TypeWriter text={text} delay={delay + 200} speed={15} /> : text}
       </div>
@@ -93,7 +93,7 @@ const ChatMessage = ({ role, text, delay }: { role: "user" | "assistant"; text: 
 export const CanvasVisualization = () => {
   return (
     <div className="relative w-full max-w-7xl mx-auto">
-      <div className="flex rounded-2xl border border-border overflow-hidden bg-card/80 backdrop-blur-sm shadow-2xl">
+      <div className="flex rounded-lg border border-border overflow-hidden bg-card/80 backdrop-blur-sm shadow-2xl">
         
         {/* Left Sidebar - Conversation */}
         <div className="w-[280px] border-r border-border bg-background/50 flex-shrink-0 hidden lg:flex flex-col">
@@ -111,7 +111,7 @@ export const CanvasVisualization = () => {
           </div>
 
           {/* Chat Messages */}
-          <div className="flex-1 p-4 space-y-4 overflow-hidden">
+          <div className="flex-1 p-4 space-y-3 overflow-hidden">
             <ChatMessage 
               role="user" 
               text="Create a content campaign for our new Canvas feature launch" 
@@ -124,6 +124,16 @@ export const CanvasVisualization = () => {
             />
             <ChatMessage 
               role="user" 
+              text="Focus on SEO-optimized content" 
+              delay={2500} 
+            />
+            <ChatMessage 
+              role="assistant" 
+              text="Got it! I've prioritized high-volume, low-difficulty keywords for maximum organic reach." 
+              delay={3200} 
+            />
+            <ChatMessage 
+              role="user" 
               text="Also add a landing page and promo video" 
               delay={4000} 
             />
@@ -132,18 +142,28 @@ export const CanvasVisualization = () => {
               text="Perfect! I've added a landing page mockup and video script to your canvas. All assets are now connected in your campaign." 
               delay={5000} 
             />
+            <ChatMessage 
+              role="user" 
+              text="Schedule everything for next week" 
+              delay={6000} 
+            />
+            <ChatMessage 
+              role="assistant" 
+              text="Done! Blog launches Monday 9AM, LinkedIn at 11AM, and email blast Tuesday. Ready to publish!" 
+              delay={6800} 
+            />
           </div>
 
           {/* Input */}
           <div className="p-4 border-t border-border">
-            <div className="flex items-center gap-2 px-3 py-2 bg-muted rounded-xl">
+            <div className="flex items-center gap-2 px-3 py-2 bg-muted rounded-md border border-border">
               <input 
                 type="text" 
                 placeholder="Ask AI to create content..." 
                 className="flex-1 bg-transparent text-xs text-foreground placeholder:text-muted-foreground outline-none"
                 disabled
               />
-              <button className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+              <button className="w-7 h-7 rounded bg-primary flex items-center justify-center">
                 <Send className="w-3 h-3 text-primary-foreground" />
               </button>
             </div>
