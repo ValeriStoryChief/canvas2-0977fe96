@@ -64,13 +64,17 @@ export const MobileCanvasContent = () => {
 
   const chatMessages = [
     { role: "user" as const, text: "Help us create content about collaborating with AI for marketing campaigns.", revealAt: 3 },
-    { role: "ai" as const, text: "I'll help you with keyword research, blog posts, social content, and visuals.", revealAt: 8 },
-    { role: "user" as const, text: "Add a landing page and explainer video too", revealAt: 35 },
-    { role: "ai" as const, text: "Done! I've added a landing page mockup and video script.", revealAt: 45 },
-    { role: "user" as const, text: "Generate images of teams working together", revealAt: 55 },
-    { role: "ai" as const, text: "I've generated 4 team collaboration images!", revealAt: 60 },
+    { role: "ai" as const, text: "I'll help you with keyword research, blog posts, social content, and visuals.", revealAt: 6 },
+    { role: "user" as const, text: "Focus on SEO-optimized articles", revealAt: 12 },
+    { role: "ai" as const, text: "Got it! Prioritizing high-volume, low-difficulty keywords for organic reach.", revealAt: 16 },
+    { role: "user" as const, text: "Add a landing page and explainer video too", revealAt: 28 },
+    { role: "ai" as const, text: "Done! I've added a landing page mockup and video script.", revealAt: 35 },
+    { role: "user" as const, text: "Generate images of teams working together", revealAt: 50 },
+    { role: "ai" as const, text: "I've generated 4 team collaboration images!", revealAt: 55 },
+    { role: "user" as const, text: "Create LinkedIn and Twitter posts", revealAt: 62 },
+    { role: "ai" as const, text: "Social posts created with hashtags and optimal timing suggestions!", revealAt: 66 },
     { role: "user" as const, text: "Schedule everything and export the code", revealAt: 72 },
-    { role: "ai" as const, text: "Campaign scheduled! Ready to publish!", revealAt: 78 },
+    { role: "ai" as const, text: "Campaign scheduled! Blog Monday 9AM, social at 11AM. Ready to publish!", revealAt: 78 },
   ];
 
   return (

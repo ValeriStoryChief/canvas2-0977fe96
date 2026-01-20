@@ -23,13 +23,13 @@ export const MobileChatSheet = ({ scrollProgress, messages }: MobileChatSheetPro
     <>
       {/* Collapsed pill */}
       {!isExpanded && (
-        <button
-          onClick={() => setIsExpanded(true)}
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-3 bg-card/95 backdrop-blur-md rounded-full border border-border shadow-xl animate-fade-in"
-        >
-          <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-            <MessageCircle className="w-3.5 h-3.5 text-primary-foreground" />
-          </div>
+          <button
+            onClick={() => setIsExpanded(true)}
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-3 bg-card/95 backdrop-blur-md rounded-lg border border-border shadow-xl animate-fade-in"
+          >
+            <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
+              <MessageCircle className="w-3.5 h-3.5 text-primary-foreground" />
+            </div>
           <span className="text-sm font-medium text-foreground">AI Chat</span>
           <ChevronUp className="w-4 h-4 text-muted-foreground" />
           {visibleMessages.length > 0 && (
@@ -50,16 +50,16 @@ export const MobileChatSheet = ({ scrollProgress, messages }: MobileChatSheetPro
           />
 
           {/* Sheet content */}
-          <div className="relative bg-card border-t border-border rounded-t-2xl max-h-[35vh] flex flex-col">
+          <div className="relative bg-card border-t border-border rounded-t-lg max-h-[40vh] flex flex-col">
             {/* Handle */}
             <div className="flex items-center justify-center pt-3 pb-2">
-              <div className="w-10 h-1 bg-muted-foreground/30 rounded-full" />
+              <div className="w-10 h-1 bg-muted-foreground/30 rounded" />
             </div>
 
             {/* Header */}
             <div className="flex items-center justify-between px-4 pb-3 border-b border-border">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-primary to-orange-400">
+                <div className="w-8 h-8 rounded overflow-hidden bg-gradient-to-br from-primary to-orange-400">
                   <img src={aiAvatar} alt="AI" className="w-full h-full object-cover" />
                 </div>
                 <div>
@@ -69,7 +69,7 @@ export const MobileChatSheet = ({ scrollProgress, messages }: MobileChatSheetPro
               </div>
               <button
                 onClick={() => setIsExpanded(false)}
-                className="w-8 h-8 rounded-full bg-muted/50 flex items-center justify-center"
+                className="w-8 h-8 rounded bg-muted/50 flex items-center justify-center"
               >
                 <ChevronDown className="w-5 h-5 text-muted-foreground" />
               </button>
@@ -83,7 +83,7 @@ export const MobileChatSheet = ({ scrollProgress, messages }: MobileChatSheetPro
                   className={`flex gap-2.5 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
                 >
                   <div
-                    className={`w-7 h-7 rounded-full flex-shrink-0 overflow-hidden ${
+                    className={`w-7 h-7 rounded flex-shrink-0 overflow-hidden ${
                       msg.role === "user"
                         ? "bg-muted"
                         : "bg-gradient-to-br from-primary to-orange-400"
@@ -96,10 +96,10 @@ export const MobileChatSheet = ({ scrollProgress, messages }: MobileChatSheetPro
                     />
                   </div>
                   <div
-                    className={`px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed max-w-[85%] ${
+                    className={`px-3.5 py-2.5 rounded-md text-sm leading-relaxed max-w-[85%] ${
                       msg.role === "user"
-                        ? "bg-muted text-foreground rounded-tr-md"
-                        : "bg-primary/10 text-foreground rounded-tl-md border border-primary/20"
+                        ? "bg-muted text-foreground"
+                        : "bg-primary/10 text-foreground border border-primary/20"
                     }`}
                   >
                     {msg.text}
@@ -110,14 +110,14 @@ export const MobileChatSheet = ({ scrollProgress, messages }: MobileChatSheetPro
 
             {/* Input */}
             <div className="p-4 border-t border-border bg-background/50">
-              <div className="flex items-center gap-3 px-4 py-3 bg-muted/50 rounded-xl border border-border">
+              <div className="flex items-center gap-3 px-4 py-3 bg-muted/50 rounded-md border border-border">
                 <input
                   type="text"
                   placeholder="Ask AI to create content..."
                   className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
                   disabled
                 />
-                <button className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+                <button className="w-9 h-9 rounded bg-primary flex items-center justify-center">
                   <Send className="w-4 h-4 text-primary-foreground" />
                 </button>
               </div>
