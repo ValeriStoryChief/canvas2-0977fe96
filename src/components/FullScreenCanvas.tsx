@@ -339,31 +339,38 @@ export const FullScreenCanvas = () => {
         {/* Main Layout - starts below toolbar */}
         <div className="relative w-full h-full pt-14 flex overflow-visible">
           
-          {/* Conversation Sidebar */}
+          {/* Conversation Sidebar - fixed position with scrolling input at bottom */}
           <div className="w-[320px] h-full bg-card/95 backdrop-blur-md border-r border-border z-30 flex flex-col flex-shrink-0">
-            {/* Messages */}
-            <div className="flex-1 p-5 space-y-4 overflow-y-auto">
-              <ChatBubble role="user" text="Build a marketing campaign for our product. We need full strategy, competitor research and all the assets." visible={scrollProgress >= 3} />
-              <ChatBubble role="ai" text="No problem! Here's the plan:" visible={scrollProgress >= 8} />
-              
-              {/* Thinking Steps for Research */}
-              <ThinkingSteps title="Research & Analysis" steps={["Running keyword research...", "Analyzing competitor content...", "Identifying target audience...", "Research complete!"]} scrollProgress={scrollProgress} startAt={10} stepInterval={4} />
+            {/* Messages - this will be positioned absolutely and scroll with content */}
+            <div className="flex-1 relative overflow-hidden">
+              <div 
+                className="absolute inset-0 p-5 space-y-4 transition-transform duration-100 ease-out"
+                style={{
+                  transform: `translateY(-${scrollProgress * 8}px)`
+                }}
+              >
+                <ChatBubble role="user" text="Build a marketing campaign for our product. We need full strategy, competitor research and all the assets." visible={scrollProgress >= 3} />
+                <ChatBubble role="ai" text="No problem! Here's the plan:" visible={scrollProgress >= 8} />
+                
+                {/* Thinking Steps for Research */}
+                <ThinkingSteps title="Research & Analysis" steps={["Running keyword research...", "Analyzing competitor content...", "Identifying target audience...", "Research complete!"]} scrollProgress={scrollProgress} startAt={10} stepInterval={4} />
 
-              {/* Thinking Steps for Content Creation */}
-              <ThinkingSteps title="Content Creation" steps={["Drafting blog article...", "Creating social posts...", "Generating landing page...", "Content assets ready!"]} scrollProgress={scrollProgress} startAt={35} stepInterval={5} />
+                {/* Thinking Steps for Content Creation */}
+                <ThinkingSteps title="Content Creation" steps={["Drafting blog article...", "Creating social posts...", "Generating landing page...", "Content assets ready!"]} scrollProgress={scrollProgress} startAt={35} stepInterval={5} />
 
-              <ChatBubble role="user" text="Generate images of teams working together" visible={scrollProgress >= 55} />
-              
-              {/* Thinking Steps for Image Generation */}
-              <ThinkingSteps title="Image Generation" steps={["Creating hero image...", "Generating social visuals...", "Optimizing for channels...", "4 images generated!"]} scrollProgress={scrollProgress} startAt={58} stepInterval={3} />
+                <ChatBubble role="user" text="Generate images of teams working together" visible={scrollProgress >= 55} />
+                
+                {/* Thinking Steps for Image Generation */}
+                <ThinkingSteps title="Image Generation" steps={["Creating hero image...", "Generating social visuals...", "Optimizing for channels...", "4 images generated!"]} scrollProgress={scrollProgress} startAt={58} stepInterval={3} />
 
-              <ChatBubble role="user" text="Schedule everything and export the code" visible={scrollProgress >= 72} />
-              
-              {/* Thinking Steps for Export */}
-              <ThinkingSteps title="Export & Schedule" steps={["Setting up schedule...", "Exporting landing page code...", "Finalizing campaign...", "Ready to publish!"]} scrollProgress={scrollProgress} startAt={75} stepInterval={4} />
+                <ChatBubble role="user" text="Schedule everything and export the code" visible={scrollProgress >= 72} />
+                
+                {/* Thinking Steps for Export */}
+                <ThinkingSteps title="Export & Schedule" steps={["Setting up schedule...", "Exporting landing page code...", "Finalizing campaign...", "Ready to publish!"]} scrollProgress={scrollProgress} startAt={75} stepInterval={4} />
+              </div>
             </div>
 
-            {/* Input */}
+            {/* Input - stays fixed at bottom */}
             <div className="p-4 bg-muted">
               <div className="flex items-center gap-3 px-4 py-3 rounded-xl">
                 <input type="text" placeholder="Ask AI to create content..." className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none" disabled />
