@@ -91,13 +91,13 @@ const ThinkingStep = ({
   return (
     <div className="flex items-center gap-2 py-0.5 animate-fade-in">
       {completed ? (
-        <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-          <svg className="w-2.5 h-2.5 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+        <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+          <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
       ) : (
-        <div className="w-4 h-4 rounded-full border-2 border-primary/30 border-t-primary animate-spin flex-shrink-0" />
+        <div className="w-4 h-4 rounded-full border-2 border-green-500/30 border-t-green-500 animate-spin flex-shrink-0" />
       )}
       <span className={`text-[11px] ${completed ? 'text-foreground' : 'text-muted-foreground'}`}>
         {text}
@@ -130,14 +130,14 @@ const ThinkingStepsGroup = ({
   return (
     <div className="animate-fade-in space-y-1">
       <div className="flex items-center gap-2 py-1">
-        <div className="w-4 h-4 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-          <svg className="w-2.5 h-2.5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+        <div className="w-4 h-4 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+          <svg className="w-2.5 h-2.5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
         <span className="text-xs font-medium text-foreground">{title}</span>
       </div>
-      <div className="border-l-2 border-primary/20 pl-3 ml-2 space-y-0.5">
+      <div className="border-l-2 border-green-500/20 pl-3 ml-2 space-y-0.5">
         {steps.map((step, i) => (
           <ThinkingStep
             key={i}

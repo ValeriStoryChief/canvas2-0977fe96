@@ -192,11 +192,11 @@ const ThinkingStep = ({
   return (
     <div className="flex items-center gap-2.5 py-1 animate-fade-in">
       {isComplete ? (
-        <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-          <CheckCircle2 className="w-3.5 h-3.5 text-primary-foreground" />
+        <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+          <CheckCircle2 className="w-3.5 h-3.5 text-white" />
         </div>
       ) : isLoading ? (
-        <div className="w-5 h-5 rounded-full border-2 border-primary/30 border-t-primary animate-spin flex-shrink-0" />
+        <div className="w-5 h-5 rounded-full border-2 border-green-500/30 border-t-green-500 animate-spin flex-shrink-0" />
       ) : (
         <div className="w-5 h-5 rounded-full border-2 border-muted-foreground/30 flex-shrink-0" />
       )}
@@ -228,12 +228,12 @@ const ThinkingSteps = ({
   return (
     <div className="animate-fade-in pl-9 space-y-0.5">
       <div className="flex items-center gap-2 py-1.5 -ml-9">
-        <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-          <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+        <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+          <CheckCircle2 className="w-3.5 h-3.5 text-green-600" />
         </div>
         <span className="text-sm font-medium text-foreground">{title}</span>
       </div>
-      <div className="border-l-2 border-primary/20 pl-4 ml-2 space-y-0.5">
+      <div className="border-l-2 border-green-500/20 pl-4 ml-2 space-y-0.5">
         {steps.map((step, i) => {
           const stepProgress = startAt + (i + 1) * stepInterval;
           const isComplete = scrollProgress >= stepProgress + stepInterval;
