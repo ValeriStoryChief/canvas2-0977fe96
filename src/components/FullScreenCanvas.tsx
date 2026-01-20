@@ -348,7 +348,7 @@ export const FullScreenCanvas = () => {
           <div className="w-[320px] h-full bg-card/95 backdrop-blur-md border-r border-border z-30 flex flex-col flex-shrink-0">
             {/* Messages */}
             <div className="flex-1 p-5 space-y-4 overflow-y-auto">
-              <ChatBubble role="user" text="Help us create content about collaborating with AI for marketing campaigns. We need blog posts, social content, and visuals." visible={scrollProgress >= 3} />
+              <ChatBubble role="user" text="Build a marketing campaign for our product. We need full strategy, competitor research and all the assets." visible={scrollProgress >= 3} />
               <ChatBubble role="ai" text="No problem! Here's the plan:" visible={scrollProgress >= 8} />
               
               {/* Thinking Steps for Research */}

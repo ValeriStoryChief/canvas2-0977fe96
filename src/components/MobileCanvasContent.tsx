@@ -63,7 +63,7 @@ export const MobileCanvasContent = () => {
   }, []);
 
   const chatMessages = [
-    { role: "user" as const, text: "Help us create content about collaborating with AI for marketing campaigns.", revealAt: 3 },
+    { role: "user" as const, text: "Build a marketing campaign for our product. We need full strategy, competitor research and all the assets.", revealAt: 3 },
     { role: "ai" as const, text: "I'll help you with keyword research, blog posts, social content, and visuals.", revealAt: 6 },
     { role: "user" as const, text: "Focus on SEO-optimized articles", revealAt: 12 },
     { role: "ai" as const, text: "Got it! Prioritizing high-volume, low-difficulty keywords for organic reach.", revealAt: 16 },
