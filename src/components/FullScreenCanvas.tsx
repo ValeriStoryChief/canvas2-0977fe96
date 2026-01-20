@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { FileText, Calendar, Share2, Image, Search, Video, Layout, PenTool, Send, Play, BarChart3, Globe, ExternalLink, Clock, Users, Zap, ChevronRight, ArrowRight, CheckCircle2, MessageCircle, Mail, TrendingUp, ListTodo, Code, Download } from "lucide-react";
+import { FileText, Calendar, Share2, Image, Search, Video, Layout, PenTool, Send, Play, BarChart3, Globe, ExternalLink, Clock, Users, Zap, ChevronRight, ArrowRight, CheckCircle2, MessageCircle, Mail, TrendingUp, ListTodo, Code, Download, Settings, Paperclip, Languages } from "lucide-react";
 import { useMobileCanvas } from "@/hooks/useMobileCanvas";
 import { MobileCanvasContent } from "./MobileCanvasContent";
 
@@ -373,7 +373,19 @@ export const FullScreenCanvas = () => {
 
             {/* Input - stays fixed at bottom */}
             <div className="p-4 bg-muted">
-              <div className="flex items-center gap-3 px-4 py-3 rounded-xl">
+              <div className="flex items-center gap-2 px-4 py-3 rounded-xl">
+                <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted-foreground/10 transition-colors">
+                  <Settings className="w-4 h-4 text-muted-foreground" />
+                </button>
+                <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted-foreground/10 transition-colors">
+                  <Paperclip className="w-4 h-4 text-muted-foreground" />
+                </button>
+                <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted-foreground/10 transition-colors">
+                  <Languages className="w-4 h-4 text-muted-foreground" />
+                </button>
+                <button className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-muted-foreground/10 transition-colors">
+                  <Globe className="w-4 h-4 text-muted-foreground" />
+                </button>
                 <input type="text" placeholder="Ask AI to create content..." className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none" disabled />
                 <button className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center hover:bg-primary/90 transition-colors">
                   <Send className="w-4 h-4 text-primary-foreground" />
