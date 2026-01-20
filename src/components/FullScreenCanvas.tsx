@@ -342,11 +342,12 @@ export const FullScreenCanvas = () => {
           {/* Conversation Sidebar - fixed position with scrolling input at bottom */}
           <div className="w-[320px] h-full bg-card/95 backdrop-blur-md border-r border-border z-30 flex flex-col flex-shrink-0">
             {/* Messages - scrolls with page */}
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-auto">
               <div 
-                className="p-5 space-y-4 transition-transform duration-100 ease-out h-full"
+                className="p-5 space-y-4 pb-32"
                 style={{
-                  transform: `translateY(-${scrollProgress * 8}px)`
+                  marginTop: `${Math.max(0, 50 - scrollProgress * 0.8)}%`,
+                  transition: 'margin-top 100ms ease-out'
                 }}
               >
                 <ChatBubble role="user" text="Build a marketing campaign for our product. We need full strategy, competitor research and all the assets." visible={scrollProgress >= 3} />
