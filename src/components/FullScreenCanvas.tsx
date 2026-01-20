@@ -341,10 +341,10 @@ export const FullScreenCanvas = () => {
           
           {/* Conversation Sidebar - fixed position with scrolling input at bottom */}
           <div className="w-[320px] h-full bg-card/95 backdrop-blur-md border-r border-border z-30 flex flex-col flex-shrink-0">
-            {/* Messages - this will be positioned absolutely and scroll with content */}
-            <div className="flex-1 relative overflow-hidden">
+            {/* Messages - scrolls with page */}
+            <div className="flex-1 overflow-hidden">
               <div 
-                className="absolute inset-0 p-5 space-y-4 transition-transform duration-100 ease-out"
+                className="p-5 space-y-4 transition-transform duration-100 ease-out h-full"
                 style={{
                   transform: `translateY(-${scrollProgress * 8}px)`
                 }}
