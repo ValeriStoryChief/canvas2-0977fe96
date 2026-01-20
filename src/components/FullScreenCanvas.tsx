@@ -943,12 +943,9 @@ export const FullScreenCanvas = () => {
         </div>
       </div>
 
-      {/* Section Progress & Scroll Progress */}
+      {/* Section Progress */}
       {isInView && scrollProgress < 95 && (
-        <>
-          <SectionProgress scrollProgress={scrollProgress} />
-          <ScrollProgress progress={scrollProgress} />
-        </>
+        <SectionProgress scrollProgress={scrollProgress} />
       )}
       
       {/* Gradient glow */}
