@@ -545,7 +545,7 @@ export const FullScreenCanvas = () => {
                       </div>
                       <div className="p-4">
                         <div className="w-full h-24 rounded mb-3 overflow-hidden">
-                          <img src={blogCover} alt="Blog cover" className="w-full h-full object-cover" />
+                          <img alt="Blog cover" className="w-full h-full object-cover" src="/lovable-uploads/0ea55350-f6d1-4f8f-a023-b403bcec917d.png" />
                         </div>
                         <h4 className="font-semibold text-foreground mb-1 text-sm">
                           How AI and Teams Create Better Campaigns Together
