@@ -302,11 +302,6 @@ export const FullScreenCanvas = () => {
         backgroundSize: '40px 40px'
       }} />
 
-        {/* Miro-like cursors */}
-        <MiroCursor name="Sarah" color="#8B5CF6" scrollProgress={scrollProgress} startX={35} startY={35} endX={65} endY={45} avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" />
-        <MiroCursor name="Mike" color="#10B981" scrollProgress={scrollProgress} startX={50} startY={55} endX={75} endY={30} avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" />
-        <MiroCursor name="Emma" color="#F59E0B" scrollProgress={scrollProgress} startX={55} startY={25} endX={45} endY={65} avatar="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" />
-
         {/* Canvas toolbar - positioned at top */}
         <div className="absolute top-0 left-0 right-0 h-14 bg-card/95 backdrop-blur-md border-b border-border flex items-center px-6 z-40">
           <div className="flex items-center gap-3">
