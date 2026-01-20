@@ -447,9 +447,9 @@ export const FullScreenCanvas = () => {
                 {/* Column 1 - Keyword Research + Longtail */}
                 <div className="flex flex-col gap-4 w-[380px] flex-shrink-0">
                   <CanvasCard scrollProgress={scrollProgress} revealAt={5}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-emerald-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-emerald-500/10 flex items-center justify-center">
                           <Search className="w-4 h-4 text-emerald-600" />
                         </div>
                         <span className="font-medium text-foreground">Keyword Research</span>
@@ -484,9 +484,9 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
 
                   <CanvasCard scrollProgress={scrollProgress} revealAt={12}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-teal-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-teal-500/10 flex items-center justify-center">
                           <TrendingUp className="w-4 h-4 text-teal-600" />
                         </div>
                         <span className="font-medium text-foreground">Longtail Opportunities</span>
@@ -497,9 +497,9 @@ export const FullScreenCanvas = () => {
                           { kw: "best AI tools for content creation", opportunity: "High" },
                           { kw: "AI collaboration workflow tips", opportunity: "High" },
                         ].map((row, i) => (
-                          <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+                          <div key={i} className="flex items-center justify-between p-2 rounded bg-muted/30 hover:bg-muted/50 transition-colors">
                             <span className="text-sm text-foreground">{row.kw}</span>
-                            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700">{row.opportunity}</span>
+                            <span className="text-xs px-2 py-0.5 rounded font-medium bg-green-100 text-green-700">{row.opportunity}</span>
                           </div>
                         ))}
                       </div>
@@ -510,9 +510,9 @@ export const FullScreenCanvas = () => {
                 {/* Column 2 - Tasks */}
                 <div className="flex flex-col gap-4 w-[280px] flex-shrink-0">
                   <CanvasCard scrollProgress={scrollProgress} revealAt={20}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-indigo-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-indigo-500/10 flex items-center justify-center">
                           <ListTodo className="w-4 h-4 text-indigo-600" />
                         </div>
                         <span className="font-medium text-foreground">Tasks</span>
@@ -527,7 +527,7 @@ export const FullScreenCanvas = () => {
                           { task: "Design landing page", done: false },
                           { task: "Schedule social posts", done: false },
                         ].map((item, i) => (
-                          <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/30 transition-colors">
+                          <div key={i} className="flex items-center gap-3 p-2 rounded hover:bg-muted/30 transition-colors">
                             <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
                               item.done ? "bg-green-500 border-green-500" : "border-muted-foreground/30"
                             }`}>
@@ -551,16 +551,16 @@ export const FullScreenCanvas = () => {
                 {/* Column 3 - Landing Page + Blog */}
                 <div className="flex flex-col gap-4 w-[340px] flex-shrink-0">
                   <CanvasCard scrollProgress={scrollProgress} revealAt={35}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-violet-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-violet-500/10 flex items-center justify-center">
                           <Layout className="w-4 h-4 text-violet-500" />
                         </div>
                         <span className="font-medium text-foreground">Landing Page</span>
                         <ExternalLink className="w-4 h-4 text-muted-foreground ml-auto cursor-pointer hover:text-foreground transition-colors" />
                       </div>
                       <div className="p-4">
-                        <div className="w-full aspect-[16/10] rounded-lg overflow-hidden border border-border">
+                        <div className="w-full aspect-[16/10] rounded overflow-hidden border border-border">
                           <img src={landingPage} alt="Landing page" className="w-full h-full object-cover" />
                         </div>
                       </div>
@@ -568,16 +568,16 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
 
                   <CanvasCard scrollProgress={scrollProgress} revealAt={40}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-primary/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center">
                           <FileText className="w-4 h-4 text-primary" />
                         </div>
                         <span className="font-medium text-foreground">Blog Article</span>
-                        <span className="ml-auto px-2 py-0.5 bg-amber-100 text-amber-700 text-xs rounded-full font-medium">Draft</span>
+                        <span className="ml-auto px-2 py-0.5 bg-amber-100 text-amber-700 text-xs rounded font-medium">Draft</span>
                       </div>
                       <div className="p-4">
-                        <div className="w-full h-24 rounded-lg mb-3 overflow-hidden">
+                        <div className="w-full h-24 rounded mb-3 overflow-hidden">
                           <img src={blogCover} alt="Blog cover" className="w-full h-full object-cover" />
                         </div>
                         <h4 className="font-semibold text-foreground mb-1 text-sm">
@@ -598,9 +598,9 @@ export const FullScreenCanvas = () => {
                 {/* Column 4 - LinkedIn + Video Script */}
                 <div className="flex flex-col gap-4 w-[320px] flex-shrink-0">
                   <CanvasCard scrollProgress={scrollProgress} revealAt={45}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-blue-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-blue-500/10 flex items-center justify-center">
                           <Share2 className="w-4 h-4 text-blue-500" />
                         </div>
                         <span className="font-medium text-foreground">LinkedIn Post</span>
@@ -628,9 +628,9 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
 
                   <CanvasCard scrollProgress={scrollProgress} revealAt={50}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-amber-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-amber-500/10 flex items-center justify-center">
                           <PenTool className="w-4 h-4 text-amber-500" />
                         </div>
                         <span className="font-medium text-foreground">Video Script</span>
@@ -655,16 +655,16 @@ export const FullScreenCanvas = () => {
                 {/* Column 5 - Promo Video + Images */}
                 <div className="flex flex-col gap-4 w-[340px] flex-shrink-0">
                   <CanvasCard scrollProgress={scrollProgress} revealAt={55}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-pink-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-pink-500/10 flex items-center justify-center">
                           <Video className="w-4 h-4 text-pink-500" />
                         </div>
                         <span className="font-medium text-foreground">Promo Video</span>
-                        <span className="ml-auto px-2 py-0.5 bg-pink-100 text-pink-700 text-xs rounded-full font-medium">Rendering</span>
+                        <span className="ml-auto px-2 py-0.5 bg-pink-100 text-pink-700 text-xs rounded font-medium">Rendering</span>
                       </div>
                       <div className="p-4">
-                        <div className="relative w-full aspect-video rounded-lg overflow-hidden">
+                        <div className="relative w-full aspect-video rounded overflow-hidden">
                           <img src={videoThumbnail} alt="Video thumbnail" className="w-full h-full object-cover" />
                           <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                             <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center cursor-pointer hover:bg-white/30 transition-all hover:scale-105 border border-white/30">
@@ -681,9 +681,9 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
 
                   <CanvasCard scrollProgress={scrollProgress} revealAt={60}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-rose-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-rose-500/10 flex items-center justify-center">
                           <Image className="w-4 h-4 text-rose-500" />
                         </div>
                         <span className="font-medium text-foreground">Generated Images</span>
@@ -698,7 +698,7 @@ export const FullScreenCanvas = () => {
                             { image: promoImage4, label: "Ad" },
                           ].map((item, i) => (
                             <div key={i} className="relative group">
-                              <div className="aspect-square rounded-lg overflow-hidden cursor-pointer transition-all group-hover:scale-[1.02] group-hover:shadow-lg">
+                              <div className="aspect-square rounded overflow-hidden cursor-pointer transition-all group-hover:scale-[1.02] group-hover:shadow-lg">
                                 <img src={item.image} alt={item.label} className="w-full h-full object-cover" />
                               </div>
                               <span className="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 bg-black/60 backdrop-blur-sm rounded text-[10px] text-white font-medium">
@@ -720,9 +720,9 @@ export const FullScreenCanvas = () => {
                 {/* Column 6 - Schedule + Export Code */}
                 <div className="flex flex-col gap-4 w-[320px] flex-shrink-0">
                   <CanvasCard scrollProgress={scrollProgress} revealAt={72}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-cyan-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-cyan-500/10 flex items-center justify-center">
                           <Calendar className="w-4 h-4 text-cyan-600" />
                         </div>
                         <span className="font-medium text-foreground">Schedule</span>
@@ -733,7 +733,7 @@ export const FullScreenCanvas = () => {
                           { label: "LinkedIn Post", time: "Mon, 11:00 AM", color: "bg-blue-500", status: "scheduled" },
                           { label: "Newsletter Send", time: "Tue, 8:00 AM", color: "bg-green-500", status: "draft" },
                         ].map((item, i) => (
-                          <div key={i} className="flex items-center gap-3 p-2 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+                          <div key={i} className="flex items-center gap-3 p-2 rounded bg-muted/30 hover:bg-muted/50 transition-colors">
                             <div className={`w-2 h-6 rounded-full ${item.color}`} />
                             <div className="flex-1">
                               <p className="text-sm font-medium text-foreground">{item.label}</p>
@@ -751,16 +751,16 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
 
                   <CanvasCard scrollProgress={scrollProgress} revealAt={78}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-slate-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-slate-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-slate-500/10 flex items-center justify-center">
                           <Code className="w-4 h-4 text-slate-600" />
                         </div>
                         <span className="font-medium text-foreground">Export Code</span>
                         <Download className="w-4 h-4 text-muted-foreground ml-auto cursor-pointer hover:text-foreground transition-colors" />
                       </div>
                       <div className="p-4 space-y-3">
-                        <div className="bg-slate-900 rounded-lg p-3 overflow-hidden">
+                        <div className="bg-slate-900 rounded p-3 overflow-hidden">
                           <pre className="text-xs text-slate-300 font-mono overflow-x-auto">
 {`<section class="hero">
   <h1>AI Campaigns</h1>
@@ -769,9 +769,9 @@ export const FullScreenCanvas = () => {
                           </pre>
                         </div>
                         <div className="flex gap-2">
-                          <button className="flex-1 py-1.5 px-2 bg-muted/50 rounded-lg text-xs font-medium text-foreground hover:bg-muted transition-colors">HTML</button>
-                          <button className="flex-1 py-1.5 px-2 bg-muted/50 rounded-lg text-xs font-medium text-foreground hover:bg-muted transition-colors">React</button>
-                          <button className="flex-1 py-1.5 px-2 bg-muted/50 rounded-lg text-xs font-medium text-foreground hover:bg-muted transition-colors">Vue</button>
+                          <button className="flex-1 py-1.5 px-2 bg-muted/50 rounded text-xs font-medium text-foreground hover:bg-muted transition-colors">HTML</button>
+                          <button className="flex-1 py-1.5 px-2 bg-muted/50 rounded text-xs font-medium text-foreground hover:bg-muted transition-colors">React</button>
+                          <button className="flex-1 py-1.5 px-2 bg-muted/50 rounded text-xs font-medium text-foreground hover:bg-muted transition-colors">Vue</button>
                         </div>
                       </div>
                     </div>
@@ -781,9 +781,9 @@ export const FullScreenCanvas = () => {
                 {/* Column 7 - Integrations + CTA */}
                 <div className="flex flex-col gap-4 w-[340px] flex-shrink-0">
                   <CanvasCard scrollProgress={scrollProgress} revealAt={85}>
-                    <div className="bg-card rounded-xl border border-border shadow-xl overflow-hidden">
+                    <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-purple-500/5 border-b border-border">
-                        <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded bg-purple-500/10 flex items-center justify-center">
                           <Globe className="w-4 h-4 text-purple-600" />
                         </div>
                         <span className="font-medium text-foreground">Publish To</span>
@@ -800,8 +800,8 @@ export const FullScreenCanvas = () => {
                             { name: "Threads", icon: "@", color: "bg-black" },
                             { name: "Pinterest", icon: "P", color: "bg-red-600" },
                           ].map((platform, i) => (
-                            <div key={i} className="flex flex-col items-center gap-1.5 p-2 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer group">
-                              <div className={`w-9 h-9 rounded-lg ${platform.color} flex items-center justify-center text-white font-bold text-sm group-hover:scale-105 transition-transform`}>
+                            <div key={i} className="flex flex-col items-center gap-1.5 p-2 rounded hover:bg-muted/50 transition-colors cursor-pointer group">
+                              <div className={`w-9 h-9 rounded ${platform.color} flex items-center justify-center text-white font-bold text-sm group-hover:scale-105 transition-transform`}>
                                 {platform.icon}
                               </div>
                               <span className="text-[10px] text-muted-foreground">{platform.name}</span>
@@ -813,7 +813,7 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
 
                   <CanvasCard scrollProgress={scrollProgress} revealAt={92}>
-                    <button className="w-full py-4 px-6 text-white rounded-xl font-semibold text-base shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-3" style={{ backgroundImage: 'var(--gradient-hero)' }}>
+                    <button className="w-full py-4 px-6 text-white rounded font-semibold text-base shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-3" style={{ backgroundImage: 'var(--gradient-hero)' }}>
                       <Calendar className="w-5 h-5" />
                       Schedule Campaign
                     </button>

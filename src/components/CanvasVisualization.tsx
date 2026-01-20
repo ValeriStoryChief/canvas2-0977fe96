@@ -199,7 +199,7 @@ export const CanvasVisualization = () => {
               {/* Row 1 */}
               {/* Keyword Research Table */}
               <CanvasNode delay={800} className="col-span-5">
-                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                <div className="bg-card rounded border border-border shadow-card overflow-hidden">
                   <div className="flex items-center gap-2 px-3 py-2 bg-emerald-500/10 border-b border-border">
                     <Search className="w-3.5 h-3.5 text-emerald-600" />
                     <span className="text-xs font-medium text-foreground">Keyword Research</span>
@@ -238,13 +238,13 @@ export const CanvasVisualization = () => {
 
               {/* Blog Article */}
               <CanvasNode delay={1200} className="col-span-4">
-                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                <div className="bg-card rounded border border-border shadow-card overflow-hidden">
                   <div className="flex items-center gap-2 px-3 py-2 bg-primary/10 border-b border-border">
                     <FileText className="w-3.5 h-3.5 text-primary" />
                     <span className="text-xs font-medium text-foreground">Blog Article</span>
                   </div>
                   <div className="p-3">
-                    <div className="w-full h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg mb-2 flex items-center justify-center">
+                    <div className="w-full h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded mb-2 flex items-center justify-center">
                       <Image className="w-4 h-4 text-primary/40" />
                     </div>
                     <h4 className="text-xs font-semibold text-foreground mb-1">
@@ -263,7 +263,7 @@ export const CanvasVisualization = () => {
 
               {/* Social Post */}
               <CanvasNode delay={1600} className="col-span-3">
-                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                <div className="bg-card rounded border border-border shadow-card overflow-hidden">
                   <div className="flex items-center gap-2 px-3 py-2 bg-blue-500/10 border-b border-border">
                     <Share2 className="w-3.5 h-3.5 text-blue-500" />
                     <span className="text-xs font-medium text-foreground">LinkedIn</span>
@@ -283,14 +283,14 @@ export const CanvasVisualization = () => {
               {/* Row 2 */}
               {/* Landing Page */}
               <CanvasNode delay={2000} className="col-span-5 row-span-2">
-                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden h-full">
+                <div className="bg-card rounded border border-border shadow-card overflow-hidden h-full">
                   <div className="flex items-center gap-2 px-3 py-2 bg-violet-500/10 border-b border-border">
                     <Layout className="w-3.5 h-3.5 text-violet-500" />
                     <span className="text-xs font-medium text-foreground">Landing Page</span>
                     <ExternalLink className="w-3 h-3 text-muted-foreground ml-auto" />
                   </div>
                   <div className="p-3 h-[calc(100%-36px)]">
-                    <div className="w-full h-full bg-gradient-to-br from-background to-muted rounded-lg border border-border overflow-hidden">
+                    <div className="w-full h-full bg-gradient-to-br from-background to-muted rounded border border-border overflow-hidden">
                       {/* Mini landing page preview */}
                       <div className="p-2 space-y-2">
                         <div className="h-2 w-20 bg-primary/20 rounded" />
@@ -315,13 +315,13 @@ export const CanvasVisualization = () => {
 
               {/* Generated Video */}
               <CanvasNode delay={2400} className="col-span-4">
-                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                <div className="bg-card rounded border border-border shadow-card overflow-hidden">
                   <div className="flex items-center gap-2 px-3 py-2 bg-pink-500/10 border-b border-border">
                     <Video className="w-3.5 h-3.5 text-pink-500" />
                     <span className="text-xs font-medium text-foreground">Promo Video</span>
                   </div>
                   <div className="p-3">
-                    <div className="relative w-full aspect-video bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg overflow-hidden flex items-center justify-center">
+                    <div className="relative w-full aspect-video bg-gradient-to-br from-slate-900 to-slate-800 rounded overflow-hidden flex items-center justify-center">
                       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiLz48cGF0aCBkPSJNMjAgMjBtLTEgMGExIDEgMCAxIDAgMiAwIDEgMSAwIDEgMCAtMiAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L2c+PC9zdmc+')] opacity-50" />
                       <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center cursor-pointer hover:bg-white/30 transition-colors">
                         <Play className="w-4 h-4 text-white ml-0.5" />
@@ -336,7 +336,7 @@ export const CanvasVisualization = () => {
 
               {/* Schedule */}
               <CanvasNode delay={2800} className="col-span-3">
-                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                <div className="bg-card rounded border border-border shadow-card overflow-hidden">
                   <div className="flex items-center gap-2 px-3 py-2 bg-cyan-500/10 border-b border-border">
                     <Calendar className="w-3.5 h-3.5 text-cyan-500" />
                     <span className="text-xs font-medium text-foreground">Schedule</span>
@@ -360,7 +360,7 @@ export const CanvasVisualization = () => {
               {/* Row 3 */}
               {/* Video Script */}
               <CanvasNode delay={3200} className="col-span-4">
-                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                <div className="bg-card rounded border border-border shadow-card overflow-hidden">
                   <div className="flex items-center gap-2 px-3 py-2 bg-amber-500/10 border-b border-border">
                     <PenTool className="w-3.5 h-3.5 text-amber-500" />
                     <span className="text-xs font-medium text-foreground">Video Script</span>
@@ -384,7 +384,7 @@ export const CanvasVisualization = () => {
 
               {/* Generated Images */}
               <CanvasNode delay={3600} className="col-span-3">
-                <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
+                <div className="bg-card rounded border border-border shadow-card overflow-hidden">
                   <div className="flex items-center gap-2 px-3 py-2 bg-rose-500/10 border-b border-border">
                     <Image className="w-3.5 h-3.5 text-rose-500" />
                     <span className="text-xs font-medium text-foreground">Generated Images</span>
@@ -399,7 +399,7 @@ export const CanvasVisualization = () => {
                       ].map((gradient, i) => (
                         <div 
                           key={i} 
-                          className={`aspect-square rounded-lg bg-gradient-to-br ${gradient} flex items-center justify-center`}
+                          className={`aspect-square rounded bg-gradient-to-br ${gradient} flex items-center justify-center`}
                         >
                           <Sparkles className="w-3 h-3 text-foreground/30" />
                         </div>
