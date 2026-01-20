@@ -61,6 +61,96 @@ const TypeWriter = ({ text, delay, speed = 25 }: { text: string; delay: number; 
   );
 };
 
+// Thinking Step with checkmark
+const ThinkingStep = ({ 
+  text, 
+  delay,
+  isComplete = true 
+}: { 
+  text: string; 
+  delay: number;
+  isComplete?: boolean;
+}) => {
+  const [visible, setVisible] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setVisible(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  useEffect(() => {
+    if (visible && isComplete) {
+      const timer = setTimeout(() => setCompleted(true), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [visible, isComplete]);
+
+  if (!visible) return null;
+  
+  return (
+    <div className="flex items-center gap-2 py-0.5 animate-fade-in">
+      {completed ? (
+        <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+          <svg className="w-2.5 h-2.5 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+      ) : (
+        <div className="w-4 h-4 rounded-full border-2 border-primary/30 border-t-primary animate-spin flex-shrink-0" />
+      )}
+      <span className={`text-[11px] ${completed ? 'text-foreground' : 'text-muted-foreground'}`}>
+        {text}
+      </span>
+    </div>
+  );
+};
+
+// Thinking Steps Group with collapsible header
+const ThinkingStepsGroup = ({ 
+  title,
+  steps,
+  startDelay,
+  stepInterval = 400
+}: { 
+  title: string;
+  steps: string[];
+  startDelay: number;
+  stepInterval?: number;
+}) => {
+  const [visible, setVisible] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setVisible(true), startDelay);
+    return () => clearTimeout(timer);
+  }, [startDelay]);
+
+  if (!visible) return null;
+
+  return (
+    <div className="animate-fade-in space-y-1">
+      <div className="flex items-center gap-2 py-1">
+        <div className="w-4 h-4 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+          <svg className="w-2.5 h-2.5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <span className="text-xs font-medium text-foreground">{title}</span>
+      </div>
+      <div className="border-l-2 border-primary/20 pl-3 ml-2 space-y-0.5">
+        {steps.map((step, i) => (
+          <ThinkingStep
+            key={i}
+            text={step}
+            delay={startDelay + (i + 1) * stepInterval}
+            isComplete={true}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // Chat message component
 const ChatMessage = ({ role, text, delay }: { role: "user" | "assistant"; text: string; delay: number }) => {
   const [visible, setVisible] = useState(false);
@@ -119,38 +209,68 @@ export const CanvasVisualization = () => {
             />
             <ChatMessage 
               role="assistant" 
-              text="I'll help you create a comprehensive campaign! Let me generate keyword research, blog content, social posts, and marketing assets." 
+              text="No problem! Here's the plan:" 
               delay={1500} 
             />
-            <ChatMessage 
-              role="user" 
-              text="Focus on SEO-optimized content" 
-              delay={2500} 
+            
+            {/* Thinking Steps for Research */}
+            <ThinkingStepsGroup
+              title="Keyword Research"
+              steps={[
+                "Analyzing search volume...",
+                "Finding low-competition keywords...",
+                "Research complete!"
+              ]}
+              startDelay={2000}
+              stepInterval={400}
             />
-            <ChatMessage 
-              role="assistant" 
-              text="Got it! I've prioritized high-volume, low-difficulty keywords for maximum organic reach." 
-              delay={3200} 
+
+            {/* Thinking Steps for Content */}
+            <ThinkingStepsGroup
+              title="Content Creation"
+              steps={[
+                "Drafting blog article...",
+                "Creating LinkedIn post...",
+                "Content ready!"
+              ]}
+              startDelay={4000}
+              stepInterval={400}
             />
+
             <ChatMessage 
               role="user" 
               text="Also add a landing page and promo video" 
-              delay={4000} 
+              delay={6000} 
             />
-            <ChatMessage 
-              role="assistant" 
-              text="Perfect! I've added a landing page mockup and video script to your canvas. All assets are now connected in your campaign." 
-              delay={5000} 
+            
+            {/* Thinking Steps for Assets */}
+            <ThinkingStepsGroup
+              title="Asset Generation"
+              steps={[
+                "Designing landing page...",
+                "Creating video script...",
+                "Assets complete!"
+              ]}
+              startDelay={6500}
+              stepInterval={400}
             />
+
             <ChatMessage 
               role="user" 
               text="Schedule everything for next week" 
-              delay={6000} 
+              delay={8500} 
             />
-            <ChatMessage 
-              role="assistant" 
-              text="Done! Blog launches Monday 9AM, LinkedIn at 11AM, and email blast Tuesday. Ready to publish!" 
-              delay={6800} 
+            
+            {/* Thinking Steps for Scheduling */}
+            <ThinkingStepsGroup
+              title="Scheduling"
+              steps={[
+                "Setting up timeline...",
+                "Scheduling posts...",
+                "Ready to publish!"
+              ]}
+              startDelay={9000}
+              stepInterval={400}
             />
           </div>
 

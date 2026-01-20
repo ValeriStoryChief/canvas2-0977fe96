@@ -175,6 +175,85 @@ const CanvasCard = ({
   );
 };
 
+// Thinking Step with checkmark
+const ThinkingStep = ({ 
+  text, 
+  isComplete, 
+  isLoading,
+  visible 
+}: { 
+  text: string; 
+  isComplete: boolean; 
+  isLoading: boolean;
+  visible: boolean;
+}) => {
+  if (!visible) return null;
+  
+  return (
+    <div className="flex items-center gap-2.5 py-1 animate-fade-in">
+      {isComplete ? (
+        <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+          <CheckCircle2 className="w-3.5 h-3.5 text-primary-foreground" />
+        </div>
+      ) : isLoading ? (
+        <div className="w-5 h-5 rounded-full border-2 border-primary/30 border-t-primary animate-spin flex-shrink-0" />
+      ) : (
+        <div className="w-5 h-5 rounded-full border-2 border-muted-foreground/30 flex-shrink-0" />
+      )}
+      <span className={`text-sm ${isComplete ? 'text-foreground' : 'text-muted-foreground'}`}>
+        {text}
+      </span>
+    </div>
+  );
+};
+
+// Thinking Steps Group
+const ThinkingSteps = ({ 
+  title,
+  steps,
+  scrollProgress,
+  startAt,
+  stepInterval = 3
+}: { 
+  title: string;
+  steps: string[];
+  scrollProgress: number;
+  startAt: number;
+  stepInterval?: number;
+}) => {
+  const isVisible = scrollProgress >= startAt;
+  
+  if (!isVisible) return null;
+
+  return (
+    <div className="animate-fade-in pl-9 space-y-0.5">
+      <div className="flex items-center gap-2 py-1.5 -ml-9">
+        <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+          <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+        </div>
+        <span className="text-sm font-medium text-foreground">{title}</span>
+      </div>
+      <div className="border-l-2 border-primary/20 pl-4 ml-2 space-y-0.5">
+        {steps.map((step, i) => {
+          const stepProgress = startAt + (i + 1) * stepInterval;
+          const isComplete = scrollProgress >= stepProgress + stepInterval;
+          const isLoading = scrollProgress >= stepProgress && scrollProgress < stepProgress + stepInterval;
+          
+          return (
+            <ThinkingStep
+              key={i}
+              text={step}
+              isComplete={isComplete}
+              isLoading={isLoading}
+              visible={scrollProgress >= stepProgress}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 // Chat Message
 const ChatBubble = ({ role, text, visible }: { role: "user" | "ai"; text: string; visible: boolean }) => {
   if (!visible) return null;
@@ -192,10 +271,10 @@ const ChatBubble = ({ role, text, visible }: { role: "user" | "ai"; text: string
           <img src={aiAvatar} alt="AI Assistant" className="w-full h-full object-cover" />
         )}
       </div>
-      <div className={`px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed max-w-[240px] ${
+      <div className={`px-3.5 py-2.5 rounded text-sm leading-relaxed max-w-[240px] ${
         role === "user" 
-          ? "bg-muted text-foreground rounded-tr-md" 
-          : "bg-primary/10 text-foreground rounded-tl-md border border-primary/20"
+          ? "bg-muted text-foreground" 
+          : "bg-primary/10 text-foreground border border-primary/20"
       }`}>
         {text}
       </div>
@@ -378,38 +457,76 @@ export const FullScreenCanvas = () => {
               />
               <ChatBubble 
                 role="ai" 
-                text="I'll help you create content about AI collaboration with keyword research, blog posts, social content, and team imagery." 
+                text="No problem! Here's the plan:" 
                 visible={scrollProgress >= 8}
               />
-              <ChatBubble 
-                role="user" 
-                text="Add a landing page and explainer video too" 
-                visible={scrollProgress >= 35}
+              
+              {/* Thinking Steps for Research */}
+              <ThinkingSteps
+                title="Research & Analysis"
+                steps={[
+                  "Running keyword research...",
+                  "Analyzing competitor content...",
+                  "Identifying target audience...",
+                  "Research complete!"
+                ]}
+                scrollProgress={scrollProgress}
+                startAt={10}
+                stepInterval={4}
               />
-              <ChatBubble 
-                role="ai" 
-                text="Done! I've added a landing page mockup and video script. All assets are connected in your canvas." 
-                visible={scrollProgress >= 45}
+
+              {/* Thinking Steps for Content Creation */}
+              <ThinkingSteps
+                title="Content Creation"
+                steps={[
+                  "Drafting blog article...",
+                  "Creating social posts...",
+                  "Generating landing page...",
+                  "Content assets ready!"
+                ]}
+                scrollProgress={scrollProgress}
+                startAt={35}
+                stepInterval={5}
               />
+
               <ChatBubble 
                 role="user" 
                 text="Generate images of teams working together" 
                 visible={scrollProgress >= 55}
               />
-              <ChatBubble 
-                role="ai" 
-                text="I've generated 4 team collaboration images optimized for different channels. Check them on your canvas!" 
-                visible={scrollProgress >= 60}
+              
+              {/* Thinking Steps for Image Generation */}
+              <ThinkingSteps
+                title="Image Generation"
+                steps={[
+                  "Creating hero image...",
+                  "Generating social visuals...",
+                  "Optimizing for channels...",
+                  "4 images generated!"
+                ]}
+                scrollProgress={scrollProgress}
+                startAt={58}
+                stepInterval={3}
               />
+
               <ChatBubble 
                 role="user" 
                 text="Schedule everything and export the code" 
                 visible={scrollProgress >= 72}
               />
-              <ChatBubble 
-                role="ai" 
-                text="Campaign scheduled! I've also prepared the export code for your landing page. Ready to publish!" 
-                visible={scrollProgress >= 78}
+              
+              {/* Thinking Steps for Export */}
+              <ThinkingSteps
+                title="Export & Schedule"
+                steps={[
+                  "Setting up schedule...",
+                  "Exporting landing page code...",
+                  "Finalizing campaign...",
+                  "Ready to publish!"
+                ]}
+                scrollProgress={scrollProgress}
+                startAt={75}
+                stepInterval={4}
               />
             </div>
 
