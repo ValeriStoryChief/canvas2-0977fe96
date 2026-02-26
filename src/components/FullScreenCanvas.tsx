@@ -491,44 +491,29 @@ export const FullScreenCanvas = () => {
                   </CanvasCard>
                 </div>
 
-                {/* Column 2 - Tasks */}
+                {/* Column 2 - Go-to-Market */}
                 <div className="flex flex-col gap-4 w-[280px] flex-shrink-0">
                   <CanvasCard scrollProgress={scrollProgress} revealAt={20}>
                     <div className="bg-card rounded border border-border shadow-xl overflow-hidden">
                       <div className="flex items-center gap-2 px-4 py-3 bg-indigo-500/5 border-b border-border">
                         <div className="w-8 h-8 rounded bg-indigo-500/10 flex items-center justify-center">
-                          <ListTodo className="w-4 h-4 text-indigo-600" />
+                          <Zap className="w-4 h-4 text-indigo-600" />
                         </div>
-                        <span className="font-medium text-foreground">Tasks</span>
-                        <span className="ml-auto text-xs text-muted-foreground">3/6</span>
+                        <span className="font-medium text-foreground">Go-to-Market</span>
                       </div>
-                      <div className="p-4 space-y-2">
-                        {[{
-                        task: "Research competitors",
-                        done: true
-                      }, {
-                        task: "Define target keywords",
-                        done: true
-                      }, {
-                        task: "Create content brief",
-                        done: true
-                      }, {
-                        task: "Draft blog article",
-                        done: false
-                      }, {
-                        task: "Design landing page",
-                        done: false
-                      }, {
-                        task: "Schedule social posts",
-                        done: false
-                      }].map((item, i) => <div key={i} className="flex items-center gap-3 p-2 rounded hover:bg-muted/30 transition-colors">
-                            <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${item.done ? "bg-green-500 border-green-500" : "border-muted-foreground/30"}`}>
-                              {item.done && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
-                            </div>
-                            <span className={`text-sm ${item.done ? "text-muted-foreground line-through" : "text-foreground"}`}>
-                              {item.task}
-                            </span>
-                          </div>)}
+                      <div className="p-4 space-y-3">
+                        {[
+                          { label: "Value Proposition", value: "AI-powered content collaboration that saves teams 10+ hrs/week", color: "bg-primary/10 text-primary" },
+                          { label: "ICP", value: "Mid-market marketing teams (20-200 employees)", color: "bg-emerald-500/10 text-emerald-700" },
+                          { label: "Marketing Mix", value: "Content-led growth, SEO, paid social, webinars", color: "bg-amber-500/10 text-amber-700" },
+                          { label: "Positioning", value: "The only AI copilot built for marketing teams", color: "bg-violet-500/10 text-violet-700" },
+                          { label: "Key Channels", value: "LinkedIn, Google Ads, Product Hunt, newsletters", color: "bg-cyan-500/10 text-cyan-700" },
+                        ].map((item, i) => (
+                          <div key={i} className="space-y-1">
+                            <span className={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${item.color}`}>{item.label}</span>
+                            <p className="text-sm text-foreground leading-snug">{item.value}</p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </CanvasCard>
