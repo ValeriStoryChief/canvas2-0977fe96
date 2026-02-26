@@ -166,34 +166,26 @@ export const MobileCanvasContent = () => {
             </div>
           </MobileCard>
 
-          {/* Tasks */}
+          {/* Go-to-Market */}
           <MobileCard scrollProgress={scrollProgress} revealAt={8}>
             <div className="mobile-canvas-card">
               <div className="flex items-center gap-2 px-3 py-2.5 bg-indigo-500/5 border-b border-border">
                 <div className="w-7 h-7 rounded-lg bg-indigo-500/10 flex items-center justify-center">
-                  <ListTodo className="w-3.5 h-3.5 text-indigo-600" />
+                  <Zap className="w-3.5 h-3.5 text-indigo-600" />
                 </div>
-                <span className="font-medium text-foreground text-sm">Tasks</span>
-                <span className="ml-auto text-xs text-muted-foreground">3/6</span>
+                <span className="font-medium text-foreground text-sm">Go-to-Market</span>
               </div>
-              <div className="p-3 space-y-1.5">
+              <div className="p-3 space-y-2.5">
                 {[
-                  { task: "Research competitors", done: true },
-                  { task: "Define target keywords", done: true },
-                  { task: "Create content brief", done: true },
-                  { task: "Draft blog article", done: false },
-                  { task: "Design landing page", done: false },
-                  { task: "Schedule social posts", done: false },
+                  { label: "Value Proposition", value: "AI-powered content collaboration that saves teams 10+ hrs/week", color: "bg-primary/10 text-primary" },
+                  { label: "ICP", value: "Mid-market marketing teams (20-200 employees)", color: "bg-emerald-500/10 text-emerald-700" },
+                  { label: "Marketing Mix", value: "Content-led growth, SEO, paid social, webinars", color: "bg-amber-500/10 text-amber-700" },
+                  { label: "Positioning", value: "The only AI copilot built for marketing teams", color: "bg-violet-500/10 text-violet-700" },
+                  { label: "Key Channels", value: "LinkedIn, Google Ads, Product Hunt, newsletters", color: "bg-cyan-500/10 text-cyan-700" },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2.5 p-1.5 rounded-lg">
-                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
-                      item.done ? "bg-green-500 border-green-500" : "border-muted-foreground/30"
-                    }`}>
-                      {item.done && <CheckCircle2 className="w-3 h-3 text-white" />}
-                    </div>
-                    <span className={`text-xs ${item.done ? "text-muted-foreground line-through" : "text-foreground"}`}>
-                      {item.task}
-                    </span>
+                  <div key={i} className="space-y-0.5">
+                    <span className={`text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${item.color}`}>{item.label}</span>
+                    <p className="text-xs text-foreground leading-snug">{item.value}</p>
                   </div>
                 ))}
               </div>
