@@ -292,7 +292,7 @@ export const FullScreenCanvas = () => {
     height: '220vh'
   }}>
       {/* Sticky container */}
-      <div className="sticky top-16 w-full h-[calc(100vh-4rem)] overflow-visible clip-none">
+      <div className="sticky top-0 w-full h-screen overflow-visible clip-none">
         {/* Background Grid */}
         <div className="absolute inset-0 opacity-40" style={{
         backgroundImage: `
@@ -336,8 +336,8 @@ export const FullScreenCanvas = () => {
         </div>
 
 
-        {/* Main Layout - starts below toolbar */}
-        <div className="relative w-full h-full pt-14 flex overflow-visible">
+        {/* Main Layout - full height */}
+        <div className="relative w-full h-full flex overflow-visible">
           
           {/* Conversation Sidebar - fixed position with scrolling input at bottom */}
           <div className="w-[320px] h-full bg-card/95 backdrop-blur-md border-r border-border z-30 flex flex-col flex-shrink-0">
