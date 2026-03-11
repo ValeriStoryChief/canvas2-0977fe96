@@ -336,8 +336,8 @@ export const FullScreenCanvas = () => {
         </div>
 
 
-        {/* Main Layout - starts below toolbar */}
-        <div className="relative w-full h-full pt-14 flex overflow-visible">
+        {/* Main Layout - full height */}
+        <div className="relative w-full h-full flex overflow-visible">
           
           {/* Conversation Sidebar - fixed position with scrolling input at bottom */}
           <div className="w-[320px] h-full bg-card/95 backdrop-blur-md border-r border-border z-30 flex flex-col flex-shrink-0">
