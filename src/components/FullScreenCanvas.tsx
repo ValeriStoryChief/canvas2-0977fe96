@@ -292,7 +292,7 @@ export const FullScreenCanvas = () => {
     height: '220vh'
   }}>
       {/* Sticky container */}
-      <div className="sticky top-16 w-full h-[calc(100vh-4rem)] overflow-visible clip-none">
+      <div className="sticky top-0 w-full h-screen overflow-visible clip-none">
         {/* Background Grid */}
         <div className="absolute inset-0 opacity-40" style={{
         backgroundImage: `
